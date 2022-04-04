@@ -1,13 +1,15 @@
-﻿using Problem01.List;
-using Problem02.Stack;
+﻿using Problem03.Queue;
 
-IAbstractStack<string> stack = new Problem02.Stack.Stack<string>();
+IAbstractQueue<int> queue = new Problem03.Queue.Queue<int>();
 
-stack.Push("first");
-stack.Push("secound");
+var numbers = new int[] { 3, 5, 7, 1, -5, -100 };
+foreach (var num in numbers)
+{
+    queue.Enqueue(num);
+}
 
 
-foreach (var item in stack)
+foreach (var item in queue)
 {
     Console.WriteLine(item);
 }

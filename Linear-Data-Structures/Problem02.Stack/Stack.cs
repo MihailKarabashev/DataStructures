@@ -33,7 +33,7 @@
 
         public int Count  { get; private set; }
 
-        //add 
+        //last in
         public void Push(T item)
         {
             var node = new Node(item);
@@ -42,6 +42,7 @@
             this.Count++;
         }
 
+        //first out
         public T Pop()
         {
             var element = this.ReturnNodeElement();
