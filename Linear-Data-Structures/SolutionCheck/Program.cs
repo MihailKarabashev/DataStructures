@@ -1,15 +1,13 @@
 ﻿using Problem01.List;
+using Problem02.Stack;
 
-IAbstractList<string> list = new Problem01.List.List<string>();
-list.Add("M");
-list.Add("F");
-list.Add("K");
-list.Add("A");
+IAbstractStack<string> stack = new Problem02.Stack.Stack<string>();
+
+stack.Push("first");
+stack.Push("secound");
 
 
-list.RemoveAt(-1);
-
-foreach (var item in list)
+foreach (var item in stack)
 {
     Console.WriteLine(item);
 }
