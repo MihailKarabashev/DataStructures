@@ -4,6 +4,7 @@ namespace SinglyLinkedList.Tests
     using NUnit.Framework;
     using Problem04.SinglyLinkedList;
     using System.Linq;
+    using System.Collections.Generic;
 
     [TestFixture]
     public class SinglyLinkedListTests

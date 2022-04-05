@@ -42,6 +42,7 @@
             }
             else
             {
+
                 var oldHead = this.head;
 
                 while (oldHead.Next != null)
