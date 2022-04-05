@@ -2,6 +2,8 @@
 
 
 linkedList.RemoveLast();
+//Node -> public Node head / public Node tail
+// array -> 
 
 
 
