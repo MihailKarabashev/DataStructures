@@ -322,15 +322,19 @@ namespace Problem03.ReversedList.Tests
 
         [Test]
         [TestCaseSource(nameof(RandomCollections))]
-        public void Remove_WithMultipleElements_ShouldRemoveCorrectElement(int[] expected)
+        public void Remove_WithMultipleElements_ShouldRemoveCorrectElement(int[] expected) // 1 2 3 4 5
         {
+            //9
             int itemToRemove = expected[expected.Length / 2];
+
             foreach (var num in expected)
             {
                 this.list.Add(num);
             }
+            //
             this.list.Remove(itemToRemove);
 
+            // 2 1 
             var expectedAsList = expected.Reverse().ToList();
             expectedAsList.Remove(itemToRemove);
 

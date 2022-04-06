@@ -1,17 +1,22 @@
 ﻿
 
-var doublyLinkedList = new Problem02.DoublyLinkedList.DoublyLinkedList<int>();
+using Problem03.ReversedList;
 
-doublyLinkedList.AddFirst(1);
-doublyLinkedList.AddFirst(2);
-doublyLinkedList.AddFirst(3);
+var reversedList = new ReversedList<int>(1);
 
-
-doublyLinkedList.RemoveFirst();
-doublyLinkedList.RemoveFirst();
+var numbers = new int[] { 3, 5, 7};
 
 
-foreach (var item in doublyLinkedList)
+foreach (var num in numbers)
+{
+    reversedList.Add(num);
+}
+
+reversedList.Insert(2, 100);
+
+foreach (var item in reversedList)
 {
     Console.WriteLine(item);
 }
+
+//7 5 100 3

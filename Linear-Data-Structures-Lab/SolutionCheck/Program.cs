@@ -1,10 +1,7 @@
-﻿var linkedList = new Problem04.SinglyLinkedList.SinglyLinkedList<int>();
+﻿var list = new Problem01.List.List<int>();
 
-
-linkedList.RemoveLast();
-//Node -> public Node head / public Node tail
-// array -> 
-
+list.Add(1);
+;
 
 
 

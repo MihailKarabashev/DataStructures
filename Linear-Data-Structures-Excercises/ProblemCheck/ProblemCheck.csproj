@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\02.DoublyLinkedList\02.DoublyLinkedList.csproj" />
+    <ProjectReference Include="..\03.ReversedList\03.ReversedList.csproj" />
   </ItemGroup>
 
 </Project>
