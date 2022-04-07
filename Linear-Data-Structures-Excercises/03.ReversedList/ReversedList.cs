@@ -74,16 +74,25 @@
             this.ValidateIndex(index);
             this.Grow();
 
-            //Koce () Misho Ivan null
             
+            //Koce (Gabo 1) Misho Ivan  
 
-            for (int i = this.Count; i >= index; i--)
+            //3 2 1  >                  //3 - 1 - 1 = 1
+            for (int i = this.Count; i > this.Count - 1 - index; i--)
             {
-                //null = Ivan
-                this.items[i] = this.items[i -1];
+                this.items[i + 1] = this.items[i];
+                //Koce Misho Ivan Ivan
+                //Koce MIsho Misho Ivan
             }
 
-            this.items[index] = item;
+            //Koce MIsho MIsho Ivan
+
+            //3 - 1 = 2
+            this.items[this.Count - index] = item;
+
+            //Koce Misho Gabo Ivan
+
+            //Reversed -> Ivan Gabo Misho Koce
 
             this.Count++;
 

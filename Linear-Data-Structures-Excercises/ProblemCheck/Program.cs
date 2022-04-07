@@ -2,21 +2,20 @@
 
 using Problem03.ReversedList;
 
-var reversedList = new ReversedList<int>(1);
-
-var numbers = new int[] { 3, 5, 7};
+var reversedList = new ReversedList<string>() { "Koce", "Misho", "Ivan"};
 
 
-foreach (var num in numbers)
-{
-    reversedList.Add(num);
-}
+reversedList.Insert(2, "Gabo");
 
-reversedList.Insert(2, 100);
 
 foreach (var item in reversedList)
 {
     Console.WriteLine(item);
 }
 
-//7 5 100 3
+//0               //1          //2
+               
+//Grabo        //Ivan         //Iavn
+//Ivan         //Gabo         //Misho
+//Misho        //Misho        //Gabo
+//Koce         //Koce         //Koce
