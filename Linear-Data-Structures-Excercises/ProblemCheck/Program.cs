@@ -14,7 +14,7 @@ foreach (var item in reversedList)
 }
 
 //0               //1          //2
-               
+
 //Grabo        //Ivan         //Iavn
 //Ivan         //Gabo         //Misho
 //Misho        //Misho        //Gabo

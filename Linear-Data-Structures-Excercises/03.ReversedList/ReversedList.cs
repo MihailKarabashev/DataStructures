@@ -77,7 +77,7 @@
             
             //Koce (Gabo 1) Misho Ivan  
 
-            //3 2 1  >                  //3 - 1 - 1 = 1
+            //3 2 1  >   //3 - 1 - 1 = 1
             for (int i = this.Count; i > this.Count - 1 - index; i--)
             {
                 this.items[i + 1] = this.items[i];
