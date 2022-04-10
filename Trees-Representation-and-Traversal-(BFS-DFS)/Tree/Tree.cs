@@ -32,12 +32,47 @@
 
         public IEnumerable<T> OrderBfs()
         {
-            throw new NotImplementedException();
+            var queue = new Queue<Tree<T>>();
+            var list = new List<T>();
+
+            queue.Enqueue(this);
+
+            while (queue.Count > 0)
+            {
+                var subTree = queue.Dequeue();
+
+                foreach (var child in subTree.children)
+                {
+                    queue.Enqueue(child);
+                }
+
+                list.Add(subTree.value);
+            }
+
+            return list;
         }
 
         public IEnumerable<T> OrderDfs()
         {
-            throw new NotImplementedException();
+            var result = new Stack<T>();
+
+            var stack = new Stack<Tree<T>>();
+            stack.Push(this);
+
+     
+            while (stack.Count > 0)
+            {
+                var nodeTree = stack.Pop();
+
+                foreach (var child in nodeTree.children)
+                {
+                    stack.Push(child);
+                }
+
+                result.Push(nodeTree.value);
+            }
+
+            return result;
         }
 
         public void RemoveNode(T nodeKey)
