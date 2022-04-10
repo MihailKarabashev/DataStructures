@@ -59,7 +59,7 @@
             var stack = new Stack<Tree<T>>();
             stack.Push(this);
 
-     
+
             while (stack.Count > 0)
             {
                 var nodeTree = stack.Pop();
@@ -75,6 +75,15 @@
             return result;
         }
 
+        public IEnumerable<T> OrderDfsWithRecursion()
+        {
+            var list = new List<T>();
+
+            this.Dfs(this,list);
+
+            return list;
+        }
+
         public void RemoveNode(T nodeKey)
         {
             throw new NotImplementedException();
@@ -83,6 +92,16 @@
         public void Swap(T firstKey, T secondKey)
         {
             throw new NotImplementedException();
+        }
+
+        private void Dfs(Tree<T> node , ICollection<T> collection)
+        {
+            foreach (var child in node.children)
+            {
+                this.Dfs(child, collection);
+            }
+
+            collection.Add(node.value);
         }
     }
 }

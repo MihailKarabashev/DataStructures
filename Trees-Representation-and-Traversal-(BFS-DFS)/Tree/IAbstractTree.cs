@@ -8,6 +8,8 @@
 
         IEnumerable<T> OrderDfs();
 
+        IEnumerable<T> OrderDfsWithRecursion();
+
         void AddChild(T parentKey, Tree<T> child);
 
         void RemoveNode(T nodeKey);
