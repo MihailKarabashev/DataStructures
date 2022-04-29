@@ -27,7 +27,9 @@
 
         public void AddChild(T parentKey, Tree<T> child)
         {
-            throw new NotImplementedException();
+            var parent = this.FindChild(this,parentKey);
+            //var parent = this.FindChildDFS(this, parentKey);
+            parent.children.Add(child);
         }
 
         public IEnumerable<T> OrderBfs()
@@ -79,7 +81,7 @@
         {
             var list = new List<T>();
 
-            this.Dfs(this,list);
+            this.RecursiveDFS(this,list);
 
             return list;
         }
@@ -94,14 +96,58 @@
             throw new NotImplementedException();
         }
 
-        private void Dfs(Tree<T> node , ICollection<T> collection)
+        private void RecursiveDFS(Tree<T> node , ICollection<T> collection)
         {
             foreach (var child in node.children)
             {
-                this.Dfs(child, collection);
+                this.RecursiveDFS(child, collection);
             }
 
             collection.Add(node.value);
+        }
+
+        private Tree<T> FindChild(Tree<T> root, T searchedValue)
+        {
+            var queue = new Queue<Tree<T>>();
+
+            queue.Enqueue(root);
+
+            while (queue.Count > 0)
+            {
+                var node = queue.Dequeue();
+
+                if (node.value.Equals(searchedValue))
+                {
+                    return node;
+                }
+
+                foreach (var child in node.children)
+                {
+                    queue.Enqueue(child);
+                }
+            }
+
+            throw new ArgumentNullException("Parent Key Not Found");
+        }
+
+        private Tree<T> FindChildDFS(Tree<T> root, T searchedValue)
+        {
+            if (root.value.Equals(searchedValue))
+            {
+                return root;
+            }
+
+            foreach (var child in root.children)
+            {
+                if (child.value.Equals(searchedValue))
+                {
+                    return child;
+                }
+
+                this.FindChild(root,searchedValue);
+            }
+
+            throw new ArgumentNullException("Parent Key Not Found");
         }
     }
 }
