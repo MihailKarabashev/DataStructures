@@ -10,6 +10,6 @@ var tree = new Tree<string>("A",
                                  new Tree<string>("H")));
 
 
-tree.AddChild("A", new Tree<string>("KOTUOSHU"));
+tree.Swap("B", "D");
 
 Console.WriteLine(string.Join(",", tree.OrderBfs()));
