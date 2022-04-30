@@ -98,7 +98,7 @@
             var nodeForDeletion = this.FindNodeWithBfs(this,nodeKey);
             var parentNode = nodeForDeletion.parent;
 
-            if (nodeForDeletion.parent is null)
+            if (parentNode is null)
             {
                 throw new ArgumentException();
             }
