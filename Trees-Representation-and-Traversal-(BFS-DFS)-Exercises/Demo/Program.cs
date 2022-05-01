@@ -7,7 +7,7 @@ var treeFactory = new IntegerTreeFactory();
 
 var tree = treeFactory.CreateTreeFromStrings(input);
 
-var list = tree.GetDeepestKey();
+var list = tree.GetLongestPath();
 
 ;
 

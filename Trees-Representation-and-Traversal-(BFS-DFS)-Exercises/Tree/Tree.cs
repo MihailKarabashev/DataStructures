@@ -46,9 +46,9 @@
             return result.ToString().TrimEnd();
         }
 
-        public IEnumerable<T> GetInternalKeys() => this.BFSWithResultKeys(x => x.children.Count > 0);
+        public IEnumerable<T> GetInternalKeys() => this.BFSWithResultKeys(x => x.children.Count > 0).Select(x => x.Key);
 
-        public IEnumerable<T> GetLeafKeys()  // =>this.BFSWithResultKeys(x=> x.children.Count == 0);
+        public IEnumerable<T> GetLeafKeys()  // =>this.BFSWithResultKeys(x=> x.children.Count == 0).Select(x=> x.Key);
         {
             var list = new List<T>();
 
@@ -69,7 +69,9 @@
 
         public IEnumerable<T> GetLongestPath()
         {
-            throw new NotImplementedException();
+            var list = this.GetLongestPathWithDFS();
+
+            return new List<T>();
         }
 
         private void DfsAsString(StringBuilder result, Tree<T> tree, int indent)
@@ -97,9 +99,9 @@
             }
         }
 
-        private IEnumerable<T> BFSWithResultKeys(Predicate<Tree<T>> predicate)
+        private IEnumerable<Tree<T>> BFSWithResultKeys(Predicate<Tree<T>> predicate)
         {
-            var list = new List<T>();
+            var list = new List<Tree<T>>();
             var queue = new Queue<Tree<T>>();
 
             queue.Enqueue(this);
@@ -112,7 +114,7 @@
                 {
                     if (predicate.Invoke(child))
                     {
-                        list.Add(child.Key);
+                        list.Add(child);
                     }
 
                     queue.Enqueue(child);
@@ -134,6 +136,43 @@
                 dict.Add(depthCount, tree);
             }
 
+        }
+
+        private IEnumerable<T> GetLongestPathWithDFS()
+        {
+            var leafs = this.BFSWithResultKeys(x => x.children.Count == 0);
+
+            var list = new List<T>();
+
+            foreach (var leaf in leafs)
+            {
+                var longestList = this.GetPath(leaf).ToList();
+
+                if (longestList.Count() > list.Count)
+                {
+                    list.Clear();
+                    list.AddRange(longestList);
+                    longestList.Clear();
+                }
+            }
+
+            return list;
+        }
+
+        private IEnumerable<T> GetPath(Tree<T> leaf)
+        {
+            var list = new List<T>();
+            var tree = leaf;
+
+            while (tree.Parent != null)
+            {
+                list.Add(tree.Key);
+                tree = tree.Parent;
+            }
+
+            list.Insert(0,tree.Key);
+
+            return list;
         }
     }
 }
