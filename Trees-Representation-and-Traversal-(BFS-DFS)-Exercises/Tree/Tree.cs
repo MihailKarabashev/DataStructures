@@ -45,26 +45,18 @@
             return result.ToString().TrimEnd();
         }
 
-        private void DfsAsString(StringBuilder result, Tree<T> tree,int indent)
-        {
-            result
-                .Append(' ', indent)
-                .AppendLine(tree.Key.ToString());
-
-            foreach (var child in tree.children)
-            {
-                this.DfsAsString(result,child, indent+2);
-            }
-        }
-
         public IEnumerable<T> GetInternalKeys()
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<T> GetLeafKeys()
+        public IEnumerable<T> GetLeafKeys()  // =>this.GetLeafKeysWithBFS(this);
         {
-            throw new NotImplementedException();
+            var list = new List<T>();
+
+            this.GetLeafKeysWithDFS(this, list);
+
+            return list;
         }
 
         public T GetDeepestKey()
@@ -75,6 +67,57 @@
         public IEnumerable<T> GetLongestPath()
         {
             throw new NotImplementedException();
+        }
+
+        private void DfsAsString(StringBuilder result, Tree<T> tree, int indent)
+        {
+            result
+                .Append(' ', indent)
+                .AppendLine(tree.Key.ToString());
+
+            foreach (var child in tree.children)
+            {
+                this.DfsAsString(result, child, indent + 2);
+            }
+        }
+
+        private void GetLeafKeysWithDFS(Tree<T> tree, ICollection<T> collection)
+        {
+            foreach (var child in tree.children)
+            {
+                this.GetLeafKeysWithDFS(child, collection);
+            }
+
+            if (tree.children.Count == 0)
+            {
+                collection.Add(tree.Key);
+            }
+        }
+
+        private IEnumerable<T> GetLeafKeysWithBFS(Tree<T> tree)
+        {
+            var queue = new Queue<Tree<T>>();
+            var list = new List<T>();
+
+            queue.Enqueue(this);
+
+            while (queue.Count > 0)
+            {
+                var subTree = queue.Dequeue();
+
+                foreach (var child in subTree.children)
+                {
+                    if (child.children.Count == 0)
+                    {
+                        list.Add(child.Key);
+                    }
+
+                    queue.Enqueue(child);
+                }
+            }
+
+
+            return list;
         }
     }
 }
