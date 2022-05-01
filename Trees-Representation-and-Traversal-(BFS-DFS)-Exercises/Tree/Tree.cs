@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Text;
 
     public class Tree<T> : IAbstractTree<T>
@@ -33,7 +34,7 @@
 
         public void AddParent(Tree<T> parent)
         {
-           this.Parent = parent;
+            this.Parent = parent;
         }
 
         public string AsString()
@@ -45,12 +46,9 @@
             return result.ToString().TrimEnd();
         }
 
-        public IEnumerable<T> GetInternalKeys()
-        {
-            throw new NotImplementedException();
-        }
+        public IEnumerable<T> GetInternalKeys() => this.BFSWithResultKeys(x => x.children.Count > 0);
 
-        public IEnumerable<T> GetLeafKeys()  // =>this.GetLeafKeysWithBFS(this);
+        public IEnumerable<T> GetLeafKeys()  // =>this.BFSWithResultKeys(x=> x.children.Count == 0);
         {
             var list = new List<T>();
 
@@ -61,7 +59,12 @@
 
         public T GetDeepestKey()
         {
-            throw new NotImplementedException();
+            var dict = new SortedDictionary<int, Tree<T>>();
+            this.GetDeepestKeyWithDFS(this, dict, 0);
+
+            var deepestKey = dict.Values.Last().Key;
+
+            return deepestKey;
         }
 
         public IEnumerable<T> GetLongestPath()
@@ -94,10 +97,10 @@
             }
         }
 
-        private IEnumerable<T> GetLeafKeysWithBFS(Tree<T> tree)
+        private IEnumerable<T> BFSWithResultKeys(Predicate<Tree<T>> predicate)
         {
-            var queue = new Queue<Tree<T>>();
             var list = new List<T>();
+            var queue = new Queue<Tree<T>>();
 
             queue.Enqueue(this);
 
@@ -107,7 +110,7 @@
 
                 foreach (var child in subTree.children)
                 {
-                    if (child.children.Count == 0)
+                    if (predicate.Invoke(child))
                     {
                         list.Add(child.Key);
                     }
@@ -116,8 +119,21 @@
                 }
             }
 
-
             return list;
+        }
+
+        private void GetDeepestKeyWithDFS(Tree<T> tree, IDictionary<int, Tree<T>> dict, int depthCount)
+        {
+            foreach (var child in tree.children)
+            {
+                this.GetDeepestKeyWithDFS(child, dict, depthCount + 1);
+            }
+
+            if (tree.children.Count == 0 && !dict.ContainsKey(depthCount))
+            {
+                dict.Add(depthCount, tree);
+            }
+
         }
     }
 }
