@@ -57,6 +57,9 @@
             return list;
         }
 
+        protected IEnumerable<Tree<T>> GetLeafKeys(Predicate<Tree<T>> predicate)
+                 => this.BFSWithResultKeys(predicate);
+
         public T GetDeepestKey()
         {
             var dict = new SortedDictionary<int, Tree<T>>();
