@@ -37,7 +37,52 @@
 
         public IEnumerable<Tree<int>> GetSubtreesWithGivenSum(int sum)
         {
-            throw new NotImplementedException();
+            var subTrees = this.GetInternalKeys(x => x.Children.Count > 0);
+
+            var list = new List<Tree<int>>();
+
+            foreach (var subTree in subTrees)
+            {
+                var currentBestSubTree = this.SomeShit(subTree,list);
+
+                if (currentBestSubTree == sum)
+                {
+                    list.Clear();
+                    list.Add(subTree);
+                }
+
+                currentBestSubTree = 0;
+            }
+
+            return list;
+
+        }
+
+        private int SomeShit(Tree<int> leaf, List<Tree<int>> list)
+        {
+            var result = 0;
+            result += leaf.Key;
+            list.Add(leaf);
+
+            foreach (var child in leaf.Children)
+            {
+                result += child.Key;
+            }
+
+            return result;
+        }
+
+        private Queue<Tree<int>> GetCurrentSubTree(Tree<int> leaf)
+        {
+            var stack = new Queue<Tree<int>>();
+            stack.Enqueue(leaf);
+
+            foreach (var child in leaf.Children)
+            {
+                stack.Enqueue(child);
+            }
+
+            return stack;
         }
 
         private Stack<int> SumCurrentBestPath(Tree<int> leaf)
