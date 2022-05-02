@@ -69,9 +69,9 @@
 
         public IEnumerable<T> GetLongestPath()
         {
-            var list = this.GetLongestPathWithDFS();
+           var list = this.GetLongestPathDFS(this);
 
-            return new List<T>();
+           return list;
         }
 
         private void DfsAsString(StringBuilder result, Tree<T> tree, int indent)
@@ -138,41 +138,40 @@
 
         }
 
-        private IEnumerable<T> GetLongestPathWithDFS()
+        private IEnumerable<T> GetLongestPathDFS(Tree<T> tree)
         {
-            var leafs = this.BFSWithResultKeys(x => x.children.Count == 0);
-
+            var leafNodes = this.BFSWithResultKeys(x=> x.children.Count() == 0);
             var list = new List<T>();
 
-            foreach (var leaf in leafs)
+            foreach (var leafNode in leafNodes)
             {
-                var longestList = this.GetPath(leaf).ToList();
+                var nodesWithLongestPathToRoot = this.GenerateLongestPathToRoot(leafNode);
 
-                if (longestList.Count() > list.Count)
+                if (nodesWithLongestPathToRoot.Count() > list.Count())
                 {
-                    list.Clear();
-                    list.AddRange(longestList);
-                    longestList.Clear();
+                   list.Clear();
+                   list.AddRange(nodesWithLongestPathToRoot);
+                   nodesWithLongestPathToRoot.Clear();
                 }
             }
 
             return list;
         }
 
-        private IEnumerable<T> GetPath(Tree<T> leaf)
+        private Stack<T> GenerateLongestPathToRoot(Tree<T> leafNode)
         {
-            var list = new List<T>();
-            var tree = leaf;
+            var currentStack = new Stack<T>();
+            var currentLeaftNode = leafNode;
 
-            while (tree.Parent != null)
+            while (currentLeaftNode.Parent != null)
             {
-                list.Add(tree.Key);
-                tree = tree.Parent;
+                currentStack.Push(currentLeaftNode.Key);
+                currentLeaftNode = currentLeaftNode.Parent;
             }
 
-            list.Insert(0,tree.Key);
+            currentStack.Push(currentLeaftNode.Key);
 
-            return list;
+            return currentStack;
         }
     }
 }
