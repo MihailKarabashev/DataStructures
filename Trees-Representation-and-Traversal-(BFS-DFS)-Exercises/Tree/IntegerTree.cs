@@ -13,7 +13,7 @@
 
         public IEnumerable<IEnumerable<int>> GetPathsWithGivenSum(int sum)
         {
-            var leafs = this.GetLeafKeys(x => x.Children.Count == 0);
+            var leafs = this.GetLeafKeys(x => x.Children.Count == 0).Cast<IntegerTree>();
 
             var list = new List<List<int>>();
             int resultSum = default;
@@ -37,13 +37,13 @@
 
         public IEnumerable<Tree<int>> GetSubtreesWithGivenSum(int sum)
         {
-            var subTrees = this.GetInternalKeys(x => x.Children.Count > 0);
+            var subTrees = this.GetInternalKeys(x => x.Children.Count > 0).Cast<IntegerTree>();
 
             var list = new List<Tree<int>>();
 
             foreach (var subTree in subTrees)
             {
-                var currentBestSubTree = this.GetCurrentSubTree(subTree,list);
+                var currentBestSubTree = this.GetCurrentSubTree(subTree);
 
                 if (currentBestSubTree == sum)
                 {
@@ -57,12 +57,10 @@
             return list;
         }
 
-
-        private int GetCurrentSubTree(Tree<int> leaf, List<Tree<int>> list)
+        private int GetCurrentSubTree(Tree<int> leaf)
         {
             var result = 0;
             result += leaf.Key;
-            list.Add(leaf);
 
             foreach (var child in leaf.Children)
             {
@@ -86,6 +84,31 @@
             stack.Push(currentLeaft.Key);
 
             return stack;
+        }
+
+        private void Dfs(
+            Tree<int> tree,
+            List<List<int>> result,
+            List<int> currentPath,
+            ref int currentSum,
+            int wantedSum)
+        {
+            //I should add currenPath.add(tree.key) (use it inside the main method of usage)
+
+            foreach (var child in tree.Children)
+            {
+                currentPath.Add(child.Key);
+                currentSum += child.Key;
+                this.Dfs(child, result, currentPath, ref currentSum, wantedSum);
+            }
+
+            if (wantedSum == currentSum)
+            {
+                result.Add(new List<int>(currentPath));
+            }
+
+            currentSum -= tree.Key;
+            currentPath.RemoveAt(currentPath.Count - 1);
         }
     }
 }

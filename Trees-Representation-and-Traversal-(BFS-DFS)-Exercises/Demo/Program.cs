@@ -8,7 +8,7 @@ var treeFactory = new IntegerTreeFactory();
 
 var tree = treeFactory.CreateTreeFromStrings(input);
 
-var subThree = tree.GetSubtreesWithGivenSum(16);
+var subThree = tree.GetSubtreesWithGivenSum(233223);
 
 ;
 
