@@ -43,7 +43,7 @@
 
             foreach (var subTree in subTrees)
             {
-                var currentBestSubTree = this.SomeShit(subTree,list);
+                var currentBestSubTree = this.GetCurrentSubTree(subTree,list);
 
                 if (currentBestSubTree == sum)
                 {
@@ -55,10 +55,10 @@
             }
 
             return list;
-
         }
 
-        private int SomeShit(Tree<int> leaf, List<Tree<int>> list)
+
+        private int GetCurrentSubTree(Tree<int> leaf, List<Tree<int>> list)
         {
             var result = 0;
             result += leaf.Key;
@@ -70,19 +70,6 @@
             }
 
             return result;
-        }
-
-        private Queue<Tree<int>> GetCurrentSubTree(Tree<int> leaf)
-        {
-            var stack = new Queue<Tree<int>>();
-            stack.Enqueue(leaf);
-
-            foreach (var child in leaf.Children)
-            {
-                stack.Enqueue(child);
-            }
-
-            return stack;
         }
 
         private Stack<int> SumCurrentBestPath(Tree<int> leaf)
