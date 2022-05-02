@@ -67,12 +67,7 @@
             return deepestKey;
         }
 
-        public IEnumerable<T> GetLongestPath()
-        {
-           var list = this.GetLongestPathDFS(this);
-
-           return list;
-        }
+        public IEnumerable<T> GetLongestPath() => GetLongestPathToRootWithBFS();
 
         private void DfsAsString(StringBuilder result, Tree<T> tree, int indent)
         {
@@ -138,7 +133,7 @@
 
         }
 
-        private IEnumerable<T> GetLongestPathDFS(Tree<T> tree)
+        private IEnumerable<T> GetLongestPathToRootWithBFS()
         {
             var leafNodes = this.BFSWithResultKeys(x=> x.children.Count() == 0);
             var list = new List<T>();
