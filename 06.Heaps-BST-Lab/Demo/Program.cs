@@ -19,10 +19,17 @@ using _03.MaxHeap;
 //                       )
 //       );
 
-var tree = new BinarySearchTree<int>();
+var bst = new BinarySearchTree<int>();
 
-tree.Insert(8);
-tree.Insert(4);
-tree.Insert(2);
+bst.Insert(10);
+bst.Insert(5);
+bst.Insert(3);
+bst.Insert(1);
+bst.Insert(4);
+bst.Insert(8);
+bst.Insert(9);
+bst.Insert(37);
+bst.Insert(39);
+bst.Insert(45);
 
-tree.EachInOrder(Console.WriteLine);
+Console.WriteLine(bst.Contains(222));
