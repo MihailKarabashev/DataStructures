@@ -20,5 +20,5 @@ var tree = new BinaryTree<int>(
        );
 
 
-tree.InOrder();
-;
+tree.ForEachInOrder(x => Console.Write(string.Join(" ", x)));
+

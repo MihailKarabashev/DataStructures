@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Text;
 
     public class BinaryTree<T> : IAbstractBinaryTree<T>
     {
@@ -20,12 +21,26 @@
 
         public string AsIndentedPreOrder(int indent)
         {
-            throw new NotImplementedException();
-        }
+            var sb = new StringBuilder();
 
+            this.PreOrderDfs(sb, indent, this);
+
+            return sb.ToString().TrimEnd();
+        }
+        //Left-Root-Right - 3, 9, 11, 17, 20, 25, 31
         public void ForEachInOrder(Action<T> action)
         {
-            throw new NotImplementedException();
+            if (this.LeftChild is not null)
+            {
+                this.LeftChild.ForEachInOrder(action);
+            }
+
+            action.Invoke(this.Value);
+
+            if (this.RightChild is not null)
+            {
+                this.RightChild.ForEachInOrder(action);
+            }
         }
 
         //Left-Root-Right - 3, 9, 11, 17, 20, 25, 31
@@ -88,5 +103,23 @@
 
             return list;
         }
+
+        private void PreOrderDfs(StringBuilder sb, int indent, IAbstractBinaryTree<T> tree)
+        {
+            sb
+            .Append(' ', indent)
+            .AppendLine(tree.Value.ToString());
+
+            if (tree.LeftChild is not null)
+            {
+                this.PreOrderDfs(sb, indent + 2, tree.LeftChild);
+            }
+
+            if (tree.RightChild is not null)
+            {
+                this.PreOrderDfs(sb, indent + 2, tree.RightChild);
+            }
+        }
+
     }
 }
