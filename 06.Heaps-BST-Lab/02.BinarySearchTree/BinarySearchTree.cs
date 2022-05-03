@@ -23,6 +23,7 @@
 
         public BinarySearchTree() { }
 
+
         public bool Contains(T element)
         {
             //bool isFound = default;
@@ -30,6 +31,59 @@
             //return isFound;
 
             return this.FindElement(element) != null;
+        }
+
+      
+
+        public void EachInOrder(Action<T> action)
+        {
+            this.EachInOrderRecursive(action, this.root);
+        }
+
+        public IBinarySearchTree<T> Search(T element)
+        {
+           var binarySearchTree = new BinarySearchTree<T>();
+
+           var node = this.FindElement(element);
+
+           binarySearchTree.root = node;
+
+           return binarySearchTree.root != null ? binarySearchTree : null;
+        }
+
+        public void Insert(T element)
+        {
+            this.root = this.InsertRecursive(element, this.root);
+        }
+
+        private Node InsertRecursive(T element, Node node)
+        {
+            if (node == null)
+            {
+                node = new Node(element);
+            }
+            else if (element.CompareTo(node.Value) < 0)
+            {
+                node.Left = this.InsertRecursive(element, node.Left);
+            }
+            else if (element.CompareTo(node.Value) > 0)
+            {
+                node.Right = this.InsertRecursive(element, node.Right);
+            }
+
+            return node;
+        }
+
+        private void EachInOrderRecursive(Action<T> action, Node node)
+        {
+            if (node is null)
+            {
+                return;
+            }
+
+            this.EachInOrderRecursive(action, node.Left);
+            action.Invoke(node.Value);
+            this.EachInOrderRecursive(action, node.Right);
         }
 
         private Node FindElement(T element)
@@ -72,71 +126,5 @@
             }
         }
 
-        public void EachInOrder(Action<T> action)
-        {
-
-            this.EachInOrderRecursive(action, this.root);
-
-        }
-
-        public IBinarySearchTree<T> Search(T element)
-        {
-            var binarySearchTree = new BinarySearchTree<T>();
-
-            this.RecursiveSearch(element, this.root, binarySearchTree);
-
-            return binarySearchTree;
-        }
-
-        private void RecursiveSearch(T element, Node node, IBinarySearchTree<T> binarySearchTree)
-        {
-            if (element.CompareTo(node.Value) < 0)
-            {
-                this.RecursiveSearch(element, node.Left, binarySearchTree);
-            }
-            else if (element.CompareTo(node.Value) > 0)
-            {
-                this.RecursiveSearch(element, node.Right, binarySearchTree);
-            }
-            else
-            {
-                binarySearchTree.Insert(node.Value);
-            }
-        }
-
-        public void Insert(T element)
-        {
-            this.root = this.InsertRecursive(element, this.root);
-        }
-
-        private Node InsertRecursive(T element, Node node)
-        {
-            if (node == null)
-            {
-                node = new Node(element);
-            }
-            else if (element.CompareTo(node.Value) < 0)
-            {
-                node.Left = this.InsertRecursive(element, node.Left);
-            }
-            else if (element.CompareTo(node.Value) > 0)
-            {
-                node.Right = this.InsertRecursive(element, node.Right);
-            }
-
-            return node;
-        }
-
-        private void EachInOrderRecursive(Action<T> action, Node node)
-        {
-            if (node is null)
-            {
-                return;
-            }
-
-            this.EachInOrderRecursive(action, node.Left);
-            action.Invoke(node.Value);
-            this.EachInOrderRecursive(action, node.Right);
-        }
     }
 }
