@@ -33,11 +33,28 @@
             throw new NotImplementedException();
         }
 
+        //Left-Right-Root - 3, 11, 9, 20, 31, 25, 17
         public IEnumerable<IAbstractBinaryTree<T>> PostOrder()
         {
-            throw new NotImplementedException();
+            var list = new List<IAbstractBinaryTree<T>>();
+
+            if (this.LeftChild is not null)
+            {
+                list.AddRange(this.LeftChild.PostOrder());
+            }
+
+            if (this.RightChild is not null)
+            {
+                list.AddRange(this.RightChild.PostOrder());
+            }
+
+            list.Add(this);
+
+            return list;
+
         }
 
+        //Root - Left - Right - 17 9 3 11 25 20 31
         public IEnumerable<IAbstractBinaryTree<T>> PreOrder()
         {
             var list = new List<IAbstractBinaryTree<T>>();
