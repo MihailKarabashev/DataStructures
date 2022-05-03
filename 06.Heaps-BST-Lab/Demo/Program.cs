@@ -20,5 +20,5 @@ var tree = new BinaryTree<int>(
        );
 
 
-tree.PostOrder();
+tree.InOrder();
 ;

@@ -28,9 +28,25 @@
             throw new NotImplementedException();
         }
 
+        //Left-Root-Right - 3, 9, 11, 17, 20, 25, 31
         public IEnumerable<IAbstractBinaryTree<T>> InOrder()
         {
-            throw new NotImplementedException();
+            var list = new List<IAbstractBinaryTree<T>>();
+
+            if (this.LeftChild is not null)
+            {
+                list.AddRange(this.LeftChild.InOrder());
+            }
+
+            list.Add(this);
+
+            if (this.RightChild is not null)
+            {
+                list.AddRange(this.RightChild.InOrder());
+            }
+
+            return list;
+
         }
 
         //Left-Right-Root - 3, 11, 9, 20, 31, 25, 17
