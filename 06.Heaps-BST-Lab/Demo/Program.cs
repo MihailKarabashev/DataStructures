@@ -19,15 +19,25 @@ using _03.MaxHeap;
 //                       )
 //       );
 
-var bst = new BinarySearchTree<int>();
+//var bst = new BinarySearchTree<int>();
 
-bst.Insert(17);
-bst.Insert(9);
-bst.Insert(3);
-bst.Insert(11);
-bst.Insert(25);
-bst.Insert(20);
-bst.Insert(31);
+//bst.Insert(17);
+//bst.Insert(9);
+//bst.Insert(3);
+//bst.Insert(11);
+//bst.Insert(25);
+//bst.Insert(20);
+//bst.Insert(31);
 
-var bsSubTree = bst.Search(9);
-bsSubTree.EachInOrder(x => Console.Write(x + " "));
+//var bsSubTree = bst.Search(9);
+//bsSubTree.EachInOrder(x => Console.Write(x + " "));
+
+
+var maxHeap = new MaxHeap<int>();
+maxHeap.Add(17);
+maxHeap.Add(9);
+maxHeap.Add(15);
+maxHeap.Add(6);
+maxHeap.Add(5);
+maxHeap.Add(8);
+maxHeap.Add(16);
