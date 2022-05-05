@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using _01.BinaryTree;
 using _02.BinarySearchTree;
 using _03.MaxHeap;
@@ -34,10 +35,19 @@ using _03.MaxHeap;
 
 
 var maxHeap = new MaxHeap<int>();
-maxHeap.Add(17);
-maxHeap.Add(9);
-maxHeap.Add(15);
-maxHeap.Add(6);
+//maxHeap.Add(25);
+//maxHeap.Add(17);
+//maxHeap.Add(16);
+//maxHeap.Add(9);
+//maxHeap.Add(5);
+//maxHeap.Add(8);
+//maxHeap.Add(15);
+//maxHeap.Add(6);
+
 maxHeap.Add(5);
-maxHeap.Add(8);
-maxHeap.Add(16);
+maxHeap.Add(3);
+maxHeap.Add(1);
+
+
+maxHeap.ExtractMax();
+maxHeap.ExtractMax();
