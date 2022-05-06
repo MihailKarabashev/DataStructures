@@ -27,7 +27,7 @@ bst.Insert(45);
 //4, 5, 8, 9, 10, 37
 
 //bst.Range(4,37);
-bst.Range(4,37);
+var ss = bst.Count();
 
 //bst.Insert(10);
 //bst.Insert(1);

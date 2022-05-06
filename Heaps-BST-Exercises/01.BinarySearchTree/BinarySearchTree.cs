@@ -83,7 +83,33 @@
 
         public int Count()
         {
-            throw new NotImplementedException();
+            if (this.root == null)
+            {
+                return 0;
+            }
+
+            int count = 0;
+
+            this.Count(this.root, ref count);
+
+            return count;
+        }
+
+        private void Count(Node node, ref int count)
+        {
+         
+
+            if (node.Left is not null)
+            {
+                this.Count(node.Left, ref count);
+            }
+
+            if (node.Right is not null)
+            {
+                this.Count(node.Right, ref count);
+            }
+
+            count++;
         }
 
         public int Rank(T element)
