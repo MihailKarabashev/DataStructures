@@ -68,18 +68,6 @@
             this.root = this.DeleteMax(this.root);
         }
 
-        private Node DeleteMax(Node node)
-        {
-            if (node.Right == null)
-            {
-                return node.Left;
-            }
-
-            node.Right = this.DeleteMax(node.Right);
-
-            return node;
-        }
-
         public void DeleteMin()
         {
             if (this.root is null)
@@ -87,20 +75,12 @@
                 throw new InvalidOperationException();
             }
 
+            //if there isn't  left child we set this.root to this.root.Right, witch means we remove our root
+            //if there is left child we go recursivly to the bottom
             this.root = this.DeleteMin(this.root);
         }
 
-        private Node DeleteMin(Node node)
-        {
-            if (node.Left == null)
-            {
-                return node.Right;
-            }
 
-            node.Left = this.DeleteMin(node.Left);
-
-            return node;
-        }
         public int Count()
         {
             throw new NotImplementedException();
@@ -129,24 +109,66 @@
         public IEnumerable<T> Range(T startRange, T endRange)
         {
             var list = new List<T>();
-            var current = this.root;
 
-            //while (current != null)
-            //{
-
-            //    if (current.Value.CompareTo(startRange) > 0)
-            //    {
-
-            //    }
-            //    else if (current.Value.CompareTo(endRange) < 0)
-            //    {
-
-            //    }
-            //}
+            if (this.root.Value.CompareTo(startRange) > 0)
+            {
+                //go from left to right
+                this.Range(startRange, endRange, list, this.root);
+            }
+            else
+            {
+                this.Range(startRange, endRange, list, this.root);
+                //go from right to left
+            }
 
             return list;
         }
 
+        //In-Order Traversal
+        private void Range(T startRange, T endRange, List<T> list, Node node)
+        {
+            if (node.Left is not null)
+            {
+                this.Range(startRange, endRange, list, node.Left);
+            }
+            
+            if (node.Value.CompareTo(startRange) >= 0 && endRange.CompareTo(node.Value) >= 0)
+            {
+                list.Add(node.Value);
+            }
+
+            if (node.Right is not null)
+            {
+                this.Range(startRange, endRange, list, node.Right);
+            }
+        }
+
+        private Node DeleteMax(Node node)
+        {
+            if (node.Right == null)
+            {
+                return node.Left;
+            }
+
+            node.Right = this.DeleteMax(node.Right);
+
+            return node;
+        }
+
+        private Node DeleteMin(Node node)
+        {
+            //here is the bottom of our recursion
+            if (node.Left == null)
+            {
+                //if there is right node we will set node.left to node.right
+                // if there isn't node.right , than we will set node.left to null
+                return node.Right;
+            }
+
+            node.Left = this.DeleteMin(node.Left);
+
+            return node;
+        }
 
         private Node FindElement(T element)
         {
