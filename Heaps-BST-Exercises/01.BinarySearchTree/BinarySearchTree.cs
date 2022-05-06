@@ -83,10 +83,7 @@
 
         public int Count()
         {
-            if (this.root == null)
-            {
-                return 0;
-            }
+            if (this.root is null) return 0;
 
             int count = 0;
 
@@ -95,26 +92,15 @@
             return count;
         }
 
-        private void Count(Node node, ref int count)
-        {
-         
-
-            if (node.Left is not null)
-            {
-                this.Count(node.Left, ref count);
-            }
-
-            if (node.Right is not null)
-            {
-                this.Count(node.Right, ref count);
-            }
-
-            count++;
-        }
-
         public int Rank(T element)
         {
-            throw new NotImplementedException();
+            if (this.root is null) return 0;
+
+            int count = 0;
+
+            this.Rank(this.root, element, ref count);
+
+            return count;
         }
 
         public T Select(int rank)
@@ -157,7 +143,7 @@
             {
                 this.Range(startRange, endRange, list, node.Left);
             }
-            
+
             if (node.Value.CompareTo(startRange) >= 0 && endRange.CompareTo(node.Value) >= 0)
             {
                 list.Add(node.Value);
@@ -168,6 +154,40 @@
                 this.Range(startRange, endRange, list, node.Right);
             }
         }
+
+        private void Rank(Node node, T element, ref int count)
+        {
+            if (node.Left is not null)
+            {
+                this.Rank(node.Left, element, ref count);
+            }
+
+            if (node.Right is not null)
+            {
+                this.Rank(node.Right, element, ref count);
+            }
+
+            if (node.Value.CompareTo(element) < 0)
+            {
+                count++;
+            }
+        }
+
+        private void Count(Node node, ref int count)
+        {
+            if (node.Left is not null)
+            {
+                this.Count(node.Left, ref count);
+            }
+
+            if (node.Right is not null)
+            {
+                this.Count(node.Right, ref count);
+            }
+
+            count++;
+        }
+
 
         private Node DeleteMax(Node node)
         {

@@ -27,7 +27,10 @@ bst.Insert(45);
 //4, 5, 8, 9, 10, 37
 
 //bst.Range(4,37);
-var ss = bst.Count();
+//var ss = bst.Count();
+
+// rank count should be equals to 5
+var ss = bst.Rank(5500);
 
 //bst.Insert(10);
 //bst.Insert(1);
