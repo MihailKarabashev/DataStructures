@@ -63,7 +63,6 @@
             throw new NotImplementedException();
         }
 
-        //2 1 3 -> 1
         public void DeleteMin()
         {
             if (this.root == null)
@@ -71,31 +70,20 @@
                 throw new InvalidOperationException();
             }
 
-            this.DeleteMinRecursivly(this.root);
+            this.root = this.DeleteMin(this.root);
         }
 
-        private void DeleteMinRecursivly(Node root)
+        private Node DeleteMin(Node node)
         {
-            if (this.root.Left == null)
+            if (node.Left == null)
             {
-                this.root = null;
-                return;
+                return node.Right;
             }
-            else if (this.root.Left is null && this.root.Right is not null)
-            {
 
-            }
-            else
-            {
-                while (root != null)
-                {
-                    this.DeleteMinRecursivly(root.Left);
-                }
+            node.Left = this.DeleteMin(node.Left);
 
-                this.root.Left = null;
-            }
+            return node;
         }
-
         public int Count()
         {
             throw new NotImplementedException();
@@ -128,7 +116,7 @@
 
             //while (current != null)
             //{
-                
+
             //    if (current.Value.CompareTo(startRange) > 0)
             //    {
 
