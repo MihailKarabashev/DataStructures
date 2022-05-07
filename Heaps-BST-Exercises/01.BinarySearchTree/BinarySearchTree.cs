@@ -12,7 +12,7 @@
                 this.Value = value;
             }
 
-            public T Value { get; }
+            public T Value { get; set; }
             public Node Left { get; set; }
             public Node Right { get; set; }
         }
@@ -54,7 +54,48 @@
 
         public void Delete(T element)
         {
-            throw new NotImplementedException();
+           this.root = this.Delete(this.root, element);
+        }
+
+        private Node Delete(Node node, T element)
+        {
+            if (node is null)
+            {
+                throw new InvalidOperationException();
+            }
+
+            if (node.Value.CompareTo(element) > 0)
+            {
+                node.Left = this.Delete(node.Left, element);
+            }
+            else if (node.Value.CompareTo(element) < 0)
+            {
+                node.Right = this.Delete(node.Right, element);
+            }
+            else
+            {
+                if (node.Right is null && node.Left is null)
+                {
+                    node = null;
+                }
+                else if(node.Right is not null && node.Left is not null)
+                {
+                    Node max = node.Right;
+                    while (max.Left != null)
+                    {
+                        max = max.Left;
+                    }
+
+                    node.Value = max.Value;
+                    node.Right = this.Delete(node.Right, max.Value);
+                }
+                else
+                {
+                    node = node.Left ?? node.Right;
+                }
+            }
+
+            return node;
         }
 
         public void DeleteMax()
@@ -112,28 +153,6 @@
             return node.Value;
         }
 
-        private Node Select(Node node, int rank)
-        {
-            if (node is null)
-            {
-                throw new InvalidOperationException();
-            }
-
-            int leftNodes = this.Count(node.Left);
-
-            if (leftNodes == rank)
-            {
-                return node;
-            }
-            else if (leftNodes > rank)
-            {
-                return Select(node.Left, rank);
-            }
-            else
-            {
-                return Select(node.Right, rank - (leftNodes + 1));
-            }
-        }
 
         public T Ceiling(T element)
         {
@@ -197,6 +216,29 @@
             if (node.Value.CompareTo(element) < 0)
             {
                 count++;
+            }
+        }
+
+        private Node Select(Node node, int rank)
+        {
+            if (node is null)
+            {
+                throw new InvalidOperationException();
+            }
+
+            int leftNodes = this.Count(node.Left);
+
+            if (leftNodes == rank)
+            {
+                return node;
+            }
+            else if (leftNodes > rank)
+            {
+                return Select(node.Left, rank);
+            }
+            else
+            {
+                return Select(node.Right, rank - (leftNodes + 1));
             }
         }
 

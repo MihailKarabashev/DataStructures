@@ -2,7 +2,6 @@
 using System;
 
 var  bst = new BinarySearchTree<int>();
-
 bst.Insert(10);
 bst.Insert(5);
 bst.Insert(3);
@@ -14,6 +13,7 @@ bst.Insert(37);
 bst.Insert(39);
 bst.Insert(45);
 
+bst.Delete(5);
 //bst.Insert(12);
 //bst.Insert(5);
 //bst.Insert(1);
