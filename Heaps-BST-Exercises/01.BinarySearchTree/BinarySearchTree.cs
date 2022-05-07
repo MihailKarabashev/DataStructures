@@ -79,7 +79,6 @@
             this.root = this.DeleteMin(this.root);
         }
 
-
         public int Count()
         {
             if (this.root is null) return 0;
@@ -138,38 +137,12 @@
 
         public T Ceiling(T element)
         {
-            throw new NotImplementedException();
+            return this.Select(Rank(element) + 1);
         }
 
         public T Floor(T element)
         {
-            //if (this.root is null)
-            //{
-            //    throw new InvalidOperationException();
-            //}
-
-            //this.Rank(element).Select()
-
-            //this.root = this.Floor(this.root, element);
-
-            throw new NotImplementedException();
-        }
-
-        private Node Floor(Node node, T element)
-        {
-            if (node.Left is null)
-            {
-                return node.Right;
-            }
-
-            if (node.Value.CompareTo(element) == 0)
-            {
-                
-            }
-
-            node.Left = this.Floor(node.Left, element);
-
-            return node;
+            return this.Select(Rank(element) - 1);
         }
 
         public IEnumerable<T> Range(T startRange, T endRange)
