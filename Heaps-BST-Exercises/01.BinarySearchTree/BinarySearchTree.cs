@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.IO;
 
     public class BinarySearchTree<T> : IBinarySearchTree<T> where T : IComparable
     {
@@ -105,7 +104,36 @@
 
         public T Select(int rank)
         {
-            throw new NotImplementedException();
+            if (this.root is null)
+            {
+                throw new InvalidOperationException();
+            }
+
+            Node node = this.Select(this.root, rank);
+            return node.Value;
+        }
+
+        private Node Select(Node node, int rank)
+        {
+            if (node is null)
+            {
+                throw new InvalidOperationException();
+            }
+
+            int leftNodes = this.Count(node.Left);
+
+            if (leftNodes == rank)
+            {
+                return node;
+            }
+            else if (leftNodes > rank)
+            {
+                return Select(node.Left, rank);
+            }
+            else
+            {
+                return Select(node.Right, rank - (leftNodes + 1));
+            }
         }
 
         public T Ceiling(T element)
@@ -115,7 +143,33 @@
 
         public T Floor(T element)
         {
+            //if (this.root is null)
+            //{
+            //    throw new InvalidOperationException();
+            //}
+
+            //this.Rank(element).Select()
+
+            //this.root = this.Floor(this.root, element);
+
             throw new NotImplementedException();
+        }
+
+        private Node Floor(Node node, T element)
+        {
+            if (node.Left is null)
+            {
+                return node.Right;
+            }
+
+            if (node.Value.CompareTo(element) == 0)
+            {
+                
+            }
+
+            node.Left = this.Floor(node.Left, element);
+
+            return node;
         }
 
         public IEnumerable<T> Range(T startRange, T endRange)
@@ -188,6 +242,15 @@
             count++;
         }
 
+        private int Count(Node node)
+        {
+            if (node is null)
+            {
+                return 0;
+            }
+
+            return 1 + this.Count(node.Left) + this.Count(node.Right);
+        }
 
         private Node DeleteMax(Node node)
         {
@@ -204,7 +267,7 @@
         private Node DeleteMin(Node node)
         {
             //here is the bottom of our recursion
-            if (node.Left == null)
+            if (node.Left is null)
             {
                 //if there is right node we will set node.left to node.right
                 // if there isn't node.right , than we will set node.left to null

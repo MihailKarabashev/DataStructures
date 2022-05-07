@@ -30,7 +30,7 @@ bst.Insert(45);
 //var ss = bst.Count();
 
 // rank count should be equals to 5
-var ss = bst.Rank(5500);
+//var ss = bst.Rank(5500);
 
 //bst.Insert(10);
 //bst.Insert(1);
@@ -43,4 +43,4 @@ var ss = bst.Rank(5500);
 //bst.Insert(20);
 
 //bst.DeleteMin();
-bst.EachInOrder(Console.WriteLine);
+Console.WriteLine(Math.Abs(5 - 4));
