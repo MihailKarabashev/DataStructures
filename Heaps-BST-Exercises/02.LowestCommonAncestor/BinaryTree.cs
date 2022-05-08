@@ -36,7 +36,68 @@
 
         public T FindLowestCommonAncestor(T first, T second)
         {
-            throw new NotImplementedException();
+            var firstNode = this.FindNode(first, this);
+            var secoundNode = this.FindNode(second, this);
+
+            if (firstNode is null || secoundNode is null)
+            {
+                throw new InvalidOperationException();
+            }
+
+            var firstNodeAncestors = this.FindNodeAncestors(firstNode);
+            var secoundNodeAncestors = this.FindNodeAncestors(secoundNode);
+
+            
+            var lowestCommonAncestor = firstNodeAncestors.Where(x=> x.CompareTo(this.Value) > 0).
+                Intersect(secoundNodeAncestors.Where(s=> s.CompareTo(this.Value) > 0)).FirstOrDefault();
+                                       
+
+            return lowestCommonAncestor;
+        }
+
+        private List<T> FindNodeAncestors(BinaryTree<T> tree)
+        {
+            var list = new List<T>();
+
+            while (tree != null)
+            {
+                list.Add(tree.Value);
+                tree = tree.Parent;
+            }
+
+            return list;
+        }
+
+        private BinaryTree<T> FindNode(T element, BinaryTree<T> tree)
+        {
+            var queue = new Queue<BinaryTree<T>>();
+            var count = 1;
+            queue.Enqueue(tree);
+
+            while (queue.Count > 0)
+            {
+                var subTree = queue.Dequeue();
+
+                if (subTree.Value.Equals(element) && count > 1)
+                {
+                    return subTree;
+                }
+
+                if (subTree.LeftChild is not null)
+                {
+                    queue.Enqueue(subTree.LeftChild);
+
+                }
+
+                if (subTree.RightChild is not null)
+                {
+                    queue.Enqueue(subTree.RightChild);
+                }
+
+                count++;
+            }
+
+            return null;
         }
     }
 }

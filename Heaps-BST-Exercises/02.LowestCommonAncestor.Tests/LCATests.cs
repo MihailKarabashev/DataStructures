@@ -26,11 +26,11 @@ public class LCATests
     }
 
     [Test]
-    [TestCase(19, 16, 21)]
-    [TestCase(12, 1, 21)]
-    [TestCase(23, 21, 30)]
+    [TestCase(19, 16, 21)] //yes
+    [TestCase(12, 1, 21)] //yes
+    [TestCase(23, 21, 30)]//yes
     [TestCase(23, 23, 30)]
-    [TestCase(12, 23, 8)]
+    [TestCase(12, 23, 8)] //yes
     [TestCase(19, 19, 23)]
     public void FindLowestCommonAncestor_WithExistingNodes_ReturnsCorrectAncestor(int expected, int firstNode, int secondNode)
     {
