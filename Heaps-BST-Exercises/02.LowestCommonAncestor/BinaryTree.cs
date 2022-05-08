@@ -48,8 +48,7 @@
             var secoundNodeAncestors = this.FindNodeAncestors(secoundNode);
 
             
-            var lowestCommonAncestor = firstNodeAncestors.Where(x=> x.CompareTo(this.Value) > 0).
-                Intersect(secoundNodeAncestors.Where(s=> s.CompareTo(this.Value) > 0)).FirstOrDefault();
+            var lowestCommonAncestor = firstNodeAncestors.Intersect(secoundNodeAncestors).FirstOrDefault();
                                        
 
             return lowestCommonAncestor;
