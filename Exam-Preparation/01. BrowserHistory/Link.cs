@@ -12,5 +12,10 @@
 
         public string Url { get; set; }
         public int LoadingTime { get; set; }
+
+        public override string ToString()
+        {
+            return $"-- {this.Url} {this.LoadingTime}s";
+        }
     }
 }
