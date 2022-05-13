@@ -2,6 +2,8 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
     using _01._BrowserHistory.Interfaces;
 
     public class BrowserHistory : IHistory
@@ -42,7 +44,7 @@
 
         public ILink GetByUrl(string url)
         {
-            throw new NotImplementedException();
+            return this.links.Where(links => links.Url == url).FirstOrDefault();
         }
 
         public ILink LastVisited()
@@ -56,32 +58,32 @@
 
         public int RemoveLinks(string url)
         {
-            throw new NotImplementedException();
-        }
+            var list = this.links.Where(x => x.Url.ToLower().Contains(url.ToLower())).ToList();
 
-        public ILink[] ToArray()
-        {
-            var arr = new ILink[this.Size];
-
-            var count = 0;
-
-            while (this.Size != 0)
+            for (int i = 0; i < list.Count; i++)
             {
-                var ss = this.DeleteLast();
-                arr[count++] = ss;
+                this.links.Remove(list[i]);
             }
 
-            return arr;
+            var linksCount = this.Size;
+
+            return linksCount == 0 ? throw new InvalidCastException() : linksCount;
         }
 
-        public List<ILink> ToList()
-        {
-            throw new NotImplementedException();
-        }
+        public ILink[] ToArray() => this.links.ToArray();
+
+        public List<ILink> ToList() => this.links.ToList();
 
         public string ViewHistory()
         {
-            throw new NotImplementedException();
+            var sb = new StringBuilder();
+
+            foreach (var link in this.links)
+            {
+                sb.AppendLine(link.ToString());
+            }
+
+            return sb.Capacity > 0 ? sb.ToString() : string.Empty;
         }
 
         private void ValidateLink()
