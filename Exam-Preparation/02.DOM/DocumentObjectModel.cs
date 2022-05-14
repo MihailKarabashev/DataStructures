@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Text;
     using _02.DOM.Interfaces;
     using _02.DOM.Models;
 
@@ -53,19 +54,6 @@
             return list;
         }
 
-        private void GetElementsByTypeDfs(IHtmlElement node, List<IHtmlElement> list, ElementType type)
-        {
-            foreach (var child in node.Children)
-            {
-                this.GetElementsByTypeDfs(child, list, type);
-            }
-
-            if (node.Type == type)
-            {
-                list.Add(node);
-            }
-        }
-
         public bool Contains(IHtmlElement htmlElement)
         {
             return this.FindElement(htmlElement) != null;
@@ -87,25 +75,73 @@
 
         public void Remove(IHtmlElement htmlElement)
         {
+            this.ValidateElementExsist(htmlElement);
+
+            this.ClearElementReferences(htmlElement);
         }
 
         public void RemoveAll(ElementType elementType)
         {
+            var queue = new Queue<IHtmlElement>();
+            queue.Enqueue(this.Root);
+
+            while(queue.Count > 0)
+            {
+                var current = queue.Dequeue();
+
+                if(current.Type == elementType)
+                {
+                   this.ClearElementReferences(current);
+                }
+
+                foreach (var child in current.Children)
+                {
+                    queue.Enqueue(child);
+                }
+            }
+        }
+
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+            this.VisualizeDomDfs(this.Root, 0, sb);
+            return sb.ToString().TrimEnd();
         }
 
         public bool AddAttribute(string attrKey, string attrValue, IHtmlElement htmlElement)
         {
-            throw new NotImplementedException();
+            this.ValidateElementExsist(htmlElement);
+            return htmlElement.AddAttribute(attrKey, attrValue);
         }
 
         public bool RemoveAttribute(string attrKey, IHtmlElement htmlElement)
         {
-            throw new NotImplementedException();
+            this.ValidateElementExsist(htmlElement);
+            return htmlElement.RemoveAttribute(attrKey);
         }
 
         public IHtmlElement GetElementById(string idValue)
         {
-            throw new NotImplementedException();
+            var queue = new Queue<IHtmlElement>();
+
+            queue.Enqueue(this.Root);
+
+            while (queue.Count > 0)
+            {
+                var currentElement = queue.Dequeue();
+
+                if (currentElement.HasId(idValue))
+                {
+                    return currentElement;
+                }
+
+                foreach (var child in currentElement.Children)
+                {
+                    queue.Enqueue(child);
+                }
+            }
+
+            return null;
         }
 
         private void ValidateElementExsist(IHtmlElement element)
@@ -137,6 +173,37 @@
             }
 
             return null;
+        }
+
+        private void GetElementsByTypeDfs(IHtmlElement node, List<IHtmlElement> list, ElementType type)
+        {
+            foreach (var child in node.Children)
+            {
+                this.GetElementsByTypeDfs(child, list, type);
+            }
+
+            if (node.Type == type)
+            {
+                list.Add(node);
+            }
+        }
+
+        private void VisualizeDomDfs(IHtmlElement node, int indent, StringBuilder sb)
+        {
+            sb.Append(' ', indent).AppendLine(node.Type.ToString());
+
+            foreach (var child in node.Children)
+            {
+                this.VisualizeDomDfs(child, indent + 2, sb);
+            }
+        }
+
+        private void ClearElementReferences(IHtmlElement element)
+        {
+            var parent = element.Parent;
+            element.Parent = null;
+            element.Children.Clear();
+            parent.Children.Remove(element);
         }
     }
 }

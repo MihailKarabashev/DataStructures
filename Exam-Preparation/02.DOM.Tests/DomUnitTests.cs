@@ -372,6 +372,7 @@
                 )
             ));
 
+
             this._document.AddAttribute("id", "navigation", this._ulElement);
 
             var element = this._document.GetElementById("navigation");
