@@ -14,6 +14,10 @@
 
         public DocumentObjectModel()
         {
+            this.Root = new HtmlElement(ElementType.Document,
+                              new HtmlElement(ElementType.Html,
+                                   new HtmlElement(ElementType.Head),
+                                   new HtmlElement(ElementType.Body)));
         }
 
         public IHtmlElement Root { get; private set; }
