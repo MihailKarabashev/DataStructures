@@ -83,7 +83,7 @@
                 sb.AppendLine(link.ToString());
             }
 
-            return sb.Capacity > 0 ? sb.ToString() : string.Empty;
+            return sb.Capacity > 0 ? sb.ToString() : "Browser history is empty!";
         }
 
         private void ValidateLink()

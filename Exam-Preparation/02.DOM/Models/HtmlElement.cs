@@ -8,15 +8,6 @@
     {
         public HtmlElement(ElementType type, params IHtmlElement[] children)
         {
-            this.Type = type;
-            this.Children = new List<IHtmlElement>();
-            this.Attributes = new Dictionary<string, string>();
-
-            foreach (var child in children)
-            {
-                this.Children.Add(child);
-                child.Parent = this;
-            }
         }
 
         public ElementType Type { get; set; }
