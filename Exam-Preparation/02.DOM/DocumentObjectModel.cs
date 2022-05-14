@@ -35,15 +35,19 @@
 
         public bool Contains(IHtmlElement htmlElement)
         {
-            throw new NotImplementedException();
+            return this.FindElement(htmlElement) != null;
         }
 
         public void InsertFirst(IHtmlElement parent, IHtmlElement child)
         {
+            this.ValidateElementExsist(parent);
+            parent.Children.Insert(0, child);
+            child.Parent = parent;
         }
 
         public void InsertLast(IHtmlElement parent, IHtmlElement child)
         {
+           
         }
 
         public void Remove(IHtmlElement htmlElement)
@@ -67,6 +71,37 @@
         public IHtmlElement GetElementById(string idValue)
         {
             throw new NotImplementedException();
+        }
+
+        private void ValidateElementExsist(IHtmlElement element)
+        {
+            if (!this.Contains(element))
+            {
+                throw new InvalidOperationException();
+            }
+        }
+
+        private IHtmlElement FindElement(IHtmlElement element)
+        {
+            var queue = new Queue<IHtmlElement>();
+            queue.Enqueue(this.Root);
+
+            while (queue.Count > 0)
+            {
+                var currentElement = queue.Dequeue();
+
+                if (currentElement == element)
+                {
+                    return element;
+                }
+
+                foreach (var child in currentElement.Children)
+                {
+                    queue.Enqueue(child);
+                }
+            }
+
+            return null;
         }
     }
 }
