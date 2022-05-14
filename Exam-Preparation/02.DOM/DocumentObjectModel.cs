@@ -24,14 +24,47 @@
 
         public IHtmlElement GetElementByType(ElementType type)
         {
-            throw new NotImplementedException();
+            var queue = new Queue<IHtmlElement>();
+            queue.Enqueue(this.Root);
+
+            while (queue.Count > 0)
+            {
+                var currentElement = queue.Dequeue();
+
+                if (currentElement.Type == type)
+                {
+                    return currentElement;
+                }
+
+                foreach (var child in currentElement.Children)
+                {
+                    queue.Enqueue(child);
+                }
+            }
+
+            return null;
         }
 
         public List<IHtmlElement> GetElementsByType(ElementType type)
         {
-            throw new NotImplementedException();
+            var list = new List<IHtmlElement>();
+            this.GetElementsByTypeDfs(this.Root, list, type);
+
+            return list;
         }
 
+        private void GetElementsByTypeDfs(IHtmlElement node, List<IHtmlElement> list, ElementType type)
+        {
+            foreach (var child in node.Children)
+            {
+                this.GetElementsByTypeDfs(child, list, type);
+            }
+
+            if (node.Type == type)
+            {
+                list.Add(node);
+            }
+        }
 
         public bool Contains(IHtmlElement htmlElement)
         {
@@ -47,7 +80,9 @@
 
         public void InsertLast(IHtmlElement parent, IHtmlElement child)
         {
-           
+            this.ValidateElementExsist(parent);
+            parent.Children.Add(child);
+            child.Parent = parent;
         }
 
         public void Remove(IHtmlElement htmlElement)
