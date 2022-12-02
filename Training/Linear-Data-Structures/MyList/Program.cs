@@ -17,4 +17,3 @@ Console.WriteLine(list[0]);
 list.Remove(20);
 
 Console.WriteLine(list.Contains(20));
-
