@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyLinkedList", "MyLinkedLis
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyDoublyLinkedList", "MyDoublyLinkedList\MyDoublyLinkedList.csproj", "{FC69BB68-355B-467D-A00B-81C1079AB0DA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyReversedList", "MyReversedList\MyReversedList.csproj", "{C014CA36-60C9-4C41-89E1-5AA1D405AE24}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{FC69BB68-355B-467D-A00B-81C1079AB0DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC69BB68-355B-467D-A00B-81C1079AB0DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FC69BB68-355B-467D-A00B-81C1079AB0DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C014CA36-60C9-4C41-89E1-5AA1D405AE24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C014CA36-60C9-4C41-89E1-5AA1D405AE24}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C014CA36-60C9-4C41-89E1-5AA1D405AE24}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C014CA36-60C9-4C41-89E1-5AA1D405AE24}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
