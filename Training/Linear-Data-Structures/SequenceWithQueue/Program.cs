@@ -1,5 +1,5 @@
-﻿
-var number = int.Parse(Console.ReadLine());
+﻿var number = int.Parse(Console.ReadLine());
+
 var queue = new Queue<int>();
 
 queue.Enqueue(number);
@@ -31,17 +31,7 @@ for (int i = 0; i <= 50; i++)
 {
     if (i % 3 == 0 && itterationsCount == null)
     {
-        foreach (var item in queue.Select((value, index) => (value, index)))
-        {
-            if (item.index == queue.Count - i + numbersCount)
-            {
-                currentNumber = item.value;
-                break;
-            }
-        }
-
-        numbersCount++;
-        itterationsCount = 0;
+        itterationsCount = SetNextMember(queue, ref numbersCount, ref currentNumber, i);
     }
 
     if (itterationsCount == 0)
@@ -54,12 +44,30 @@ for (int i = 0; i <= 50; i++)
         queue.Enqueue(2 * currentNumber + 1);
         itterationsCount++;
     }
-    else if (itterationsCount == 2)
+    else
     {
         queue.Enqueue(currentNumber + 2);
         itterationsCount = null;
     }
 
+}
+
+
+ int? SetNextMember(Queue<int> queue, ref int numbersCount, ref int currentNumber, int i)
+{
+    int? itterationsCount;
+    foreach (var item in queue.Select((value, index) => (value, index)))
+    {
+        if (item.index == queue.Count - i + numbersCount)
+        {
+            currentNumber = item.value;
+            break;
+        }
+    }
+
+    numbersCount++;
+    itterationsCount = 0;
+    return itterationsCount;
 }
 
 
