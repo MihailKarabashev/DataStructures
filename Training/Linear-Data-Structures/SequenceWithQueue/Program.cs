@@ -26,14 +26,20 @@ int currentNumber = number;
 // queue.Enqueue(2, 3 , 5 , 4 ,   4, 7 ,5) = queue.Count - i numbersCount++ = 2
 // queue.Enqueue(2, 3 , 5 , 4 ,   4, 7 ,5 ,   6, 11, 7) = queue.Count - i numbersCount+++ = 3
 
+//queue.Count (4) - i(3) + sCounter(0) = 1
 
-for (int i = 0; i <= 50; i++)
+
+for (int i = 0; i < 50; i++)
 {
     if (i % 3 == 0 && itterationsCount == null)
     {
         itterationsCount = SetNextMember(queue, ref numbersCount, ref currentNumber, i);
     }
 
+    //if(itterationsCount < 2)
+    //{
+    //    itterationsCount == 0 ? queue.Enqueue(currentNumber + 1) : queue.Enqueue(2 * currentNumber + 1);
+    //}
     if (itterationsCount == 0)
     {
         queue.Enqueue(currentNumber + 1);
@@ -77,3 +83,25 @@ foreach (var item in queue)
     Console.Write(item + "   ");
 }
 
+
+//for (int i = 0; i < 50; i++)
+//{
+//var elementAt = queue.ElementAt(elmentsCounter);
+
+//    if (counter == 0)
+//    {
+//        queue.Enqueue(elementAt + 1);
+//        counter++;
+//    }
+//    else if (counter == 1)
+//    {
+//        queue.Enqueue(2 * elementAt + 1);
+//        counter++;
+//    }
+//    else
+//    {
+//        queue.Enqueue(elementAt + 2);
+//        counter = 0;
+//        elmentsCounter++;
+//    }
+//}
