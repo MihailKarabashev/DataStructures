@@ -13,7 +13,7 @@ reversedList.Add("Koci");
 reversedList.Add("Anton"); 
 reversedList.Add("Neli"); 
 
-reversedList.Insert(2, "Fantom"); // Neli {Anton} Koci Misho
+reversedList.Insert(2, "Fantom");
 
 
 
