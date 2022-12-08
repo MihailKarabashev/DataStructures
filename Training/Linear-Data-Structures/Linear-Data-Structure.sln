@@ -17,8 +17,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyReversedList", "MyReverse
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SequenceWithQueue", "SequenceWithQueue\SequenceWithQueue.csproj", "{1CDE13A8-B9A7-424E-9537-330707DC8728}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReverseNumbersWithStack", "ReverseNumbersWithStack\ReverseNumbersWithStack.csproj", "{D5337ED2-077E-4456-AD7B-C3BFD1427D47}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,10 +51,6 @@ Global
 		{1CDE13A8-B9A7-424E-9537-330707DC8728}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1CDE13A8-B9A7-424E-9537-330707DC8728}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1CDE13A8-B9A7-424E-9537-330707DC8728}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D5337ED2-077E-4456-AD7B-C3BFD1427D47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D5337ED2-077E-4456-AD7B-C3BFD1427D47}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D5337ED2-077E-4456-AD7B-C3BFD1427D47}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D5337ED2-077E-4456-AD7B-C3BFD1427D47}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
