@@ -23,6 +23,89 @@ public class Tree<T> : IAbstractTree<T>
         }
     }
 
+    public void AddChild(T parentKey, Tree<T> child)
+    {
+
+        var tree = AddChildWithBfs(parentKey);
+
+        if (tree is null) throw new ArgumentNullException();
+        tree._children.Add(child);
+        child._parent = tree;
+
+        //var queue = new Queue<Tree<T>>();
+        //queue.Enqueue(this);
+        //bool isFound = false;
+        ////  A
+        ////B   C
+
+        //while (queue.Count > 0)
+        //{
+        //    //A
+        //    var tree = queue.Dequeue();
+
+        //    if (tree._value.Equals(parentKey))
+        //    {
+        //        isFound = true;
+        //        tree._children.Add(child);
+        //        break;
+        //    }
+
+        //    foreach (var item in tree._children)
+        //    {
+        //        queue.Enqueue(item);
+        //    }
+        //}
+
+        //if (!isFound)
+        //{
+        //    throw new ArgumentNullException();
+        //}
+
+        //bool isFound = false;
+        //AddChildWithDfs(this, ref isFound,parentKey,child);
+
+        //if (!isFound) throw new ArgumentNullException();
+    }
+
+    private Tree<T> AddChildWithBfs(T parentKey)
+    {
+        var queue = new Queue<Tree<T>>();
+        queue.Enqueue(this);
+        
+
+        while (queue.Count > 0)
+        {
+            var tree = queue.Dequeue();
+
+            if (tree._value.Equals(parentKey))
+            {
+               return tree;
+            }
+
+            foreach (var item in tree._children)
+            {
+                queue.Enqueue(item);
+            }
+        }
+
+        return null;
+    }
+
+    private void AddChildWithDfs(Tree<T> tree,  ref bool isFound, T parentKey, Tree<T> child)
+    {
+        foreach (var item in tree._children)
+        {
+            if (item._value.Equals(parentKey))
+            {
+                item._children.Add(child);
+                isFound = true;
+                break;
+            }
+
+            AddChildWithDfs(item, ref isFound, parentKey, child);
+        }
+    }
+
     public IEnumerable<T> OrderBfs()
     {
         var queue = new Queue<Tree<T>>();

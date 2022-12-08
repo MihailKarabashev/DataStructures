@@ -16,9 +16,11 @@ var tree = new Tree<string>("A",
 //}
 
 
-var dfsTree = tree.OrderDfs();
+tree.AddChild("C", new Tree<string>("Misho"));
 
-foreach (var item in dfsTree)
+var treeBfs = tree.OrderBfs();
+
+foreach (var item in treeBfs)
 {
-    Console.Write(item + " ");
+    Console.WriteLine(item);
 }
