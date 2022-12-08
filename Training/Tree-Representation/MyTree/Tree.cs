@@ -29,19 +29,40 @@ public class Tree<T> : IAbstractTree<T>
         var result = new List<T>();
         queue.Enqueue(this);
 
-        // A B C D
+        //    A 
+        //  B    C
+        //D
 
         while (queue.Count > 0)
         {
             var parent = queue.Dequeue();
             result.Add(parent._value);
 
-            foreach (var child in parent._children)
+            foreach (var child in parent._children) 
             {
                 queue.Enqueue(child);
             }
         }
 
         return result;
+    }
+
+    public IEnumerable<T> OrderDfs()
+    {
+        var result = new List<T>();
+
+        Dfs(this, result);
+
+        return result;
+    }
+
+    private void Dfs(Tree<T> tree, IList<T> result)
+    {
+        foreach (var child in tree._children)
+        {
+            Dfs(child,result);
+        }
+
+        result.Add(tree._value);
     }
 }
