@@ -23,6 +23,32 @@ public class Tree<T> : IAbstractTree<T>
         }
     }
 
+    public void RemoveNode(T nodeKey)
+    {
+        var queue = new Queue<Tree<T>>();
+        queue.Enqueue(this);
+
+        if (queue.Peek()._value.Equals(nodeKey)) throw new ArgumentException(nameof(nodeKey));
+
+
+        while (queue.Count > 0)
+        {
+            var currentTree = queue.Dequeue();
+
+            if(currentTree._value.Equals(nodeKey)
+                && (currentTree._children.Count > 0 || currentTree._children.Count == 0))
+            {
+                currentTree._parent._children.Remove(currentTree);  
+            }
+
+
+            foreach (var child in currentTree._children)
+            {
+                queue.Enqueue(child);
+            }
+        }
+    }
+
     public void AddChild(T parentKey, Tree<T> child)
     {
 
@@ -67,45 +93,6 @@ public class Tree<T> : IAbstractTree<T>
         //if (!isFound) throw new ArgumentNullException();
     }
 
-    private Tree<T> AddChildWithBfs(T parentKey)
-    {
-        var queue = new Queue<Tree<T>>();
-        queue.Enqueue(this);
-        
-
-        while (queue.Count > 0)
-        {
-            var tree = queue.Dequeue();
-
-            if (tree._value.Equals(parentKey))
-            {
-               return tree;
-            }
-
-            foreach (var item in tree._children)
-            {
-                queue.Enqueue(item);
-            }
-        }
-
-        return null;
-    }
-
-    private void AddChildWithDfs(Tree<T> tree,  ref bool isFound, T parentKey, Tree<T> child)
-    {
-        foreach (var item in tree._children)
-        {
-            if (item._value.Equals(parentKey))
-            {
-                item._children.Add(child);
-                isFound = true;
-                break;
-            }
-
-            AddChildWithDfs(item, ref isFound, parentKey, child);
-        }
-    }
-
     public IEnumerable<T> OrderBfs()
     {
         var queue = new Queue<Tree<T>>();
@@ -147,5 +134,44 @@ public class Tree<T> : IAbstractTree<T>
         }
 
         result.Add(tree._value);
+    }
+
+    private Tree<T> AddChildWithBfs(T parentKey)
+    {
+        var queue = new Queue<Tree<T>>();
+        queue.Enqueue(this);
+
+
+        while (queue.Count > 0)
+        {
+            var tree = queue.Dequeue();
+
+            if (tree._value.Equals(parentKey))
+            {
+                return tree;
+            }
+
+            foreach (var item in tree._children)
+            {
+                queue.Enqueue(item);
+            }
+        }
+
+        return null;
+    }
+
+    private void AddChildWithDfs(Tree<T> tree, ref bool isFound, T parentKey, Tree<T> child)
+    {
+        foreach (var item in tree._children)
+        {
+            if (item._value.Equals(parentKey))
+            {
+                item._children.Add(child);
+                isFound = true;
+                break;
+            }
+
+            AddChildWithDfs(item, ref isFound, parentKey, child);
+        }
     }
 }
