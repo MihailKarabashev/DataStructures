@@ -1,11 +1,13 @@
-﻿namespace MyTree;
+﻿using System.Data.SqlTypes;
+using System.Reflection.Metadata;
+
+namespace MyTree;
 
 public class Tree<T> : IAbstractTree<T>
 {
     private readonly List<Tree<T>> _children;
     private Tree<T> _parent;
     private T _value;
-
 
     public Tree(T value)
     {
@@ -173,5 +175,65 @@ public class Tree<T> : IAbstractTree<T>
 
             AddChildWithDfs(item, ref isFound, parentKey, child);
         }
+    }
+
+    public void Swap(T firstKey, T secondKey)
+    {
+        var listOfTrees = FindMultipleTreesByKey(firstKey, secondKey);
+
+        var firstNode = listOfTrees[0];
+        var secoundNode = listOfTrees[1];
+
+        if (firstNode is  null || secoundNode is  null)
+        {
+            throw new ArgumentException();
+        }
+
+        var firstParent = firstNode._parent;
+        var secoundParent = secoundNode._parent;
+
+
+        var indexOfFirstNode = firstParent._children.IndexOf(firstNode);
+        var indexOfSecundNode = secoundParent._children.IndexOf(secoundNode);
+
+        //7
+        //19 21 14
+
+        firstParent._children[indexOfFirstNode] = secoundNode;
+        secoundNode._parent = firstParent;
+
+        secoundParent._children[indexOfSecundNode] = firstNode;
+        firstNode._parent = secoundParent;
+    }
+
+    private List<Tree<T>> FindMultipleTreesByKey(T firstKey, T secondKey)
+    {
+        var list = new List<Tree<T>>();
+
+        var queue = new Queue<Tree<T>>();
+        queue.Enqueue(this);
+
+        if (queue.Peek()._value.Equals(firstKey) || queue.Peek()._value.Equals(secondKey))
+            throw new ArgumentException("You cannot swap the root element!");
+
+
+        while (queue.Count > 0)
+        {
+            var currentNode = queue.Dequeue();
+
+            if (currentNode._value.Equals(secondKey) || currentNode._value.Equals(firstKey)) 
+                  list.Add(currentNode);
+
+            if(list.Count > 1)
+                break;
+
+
+            foreach (var child in currentNode._children)
+            {
+                queue.Enqueue(child);
+            }
+        }
+
+        return list;
     }
 }
