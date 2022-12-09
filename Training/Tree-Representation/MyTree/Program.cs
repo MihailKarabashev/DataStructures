@@ -38,7 +38,7 @@ var tree = new Tree<int>(7,
                      );
 
 
-tree.Swap(19, 14);
+tree.Swap(192222, 14);
 
 var bfsTree = tree.OrderBfs();
 

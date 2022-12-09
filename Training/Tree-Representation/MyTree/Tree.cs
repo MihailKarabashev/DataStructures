@@ -181,26 +181,27 @@ public class Tree<T> : IAbstractTree<T>
     {
         var listOfTrees = FindMultipleTreesByKey(firstKey, secondKey);
 
-        var firstNode = listOfTrees[0];
-        var secoundNode = listOfTrees[1];
+        var firstNode = listOfTrees.Count > 1 ? listOfTrees[0] : null;
+        var secondNode = listOfTrees.Count > 1 ? listOfTrees[1] : null;
+        
 
-        if (firstNode is  null || secoundNode is  null)
+        if (firstNode is  null || secondNode is  null)
         {
             throw new ArgumentException();
         }
 
         var firstParent = firstNode._parent;
-        var secoundParent = secoundNode._parent;
+        var secoundParent = secondNode._parent;
 
 
         var indexOfFirstNode = firstParent._children.IndexOf(firstNode);
-        var indexOfSecundNode = secoundParent._children.IndexOf(secoundNode);
+        var indexOfSecundNode = secoundParent._children.IndexOf(secondNode);
 
         //7
         //19 21 14
 
-        firstParent._children[indexOfFirstNode] = secoundNode;
-        secoundNode._parent = firstParent;
+        firstParent._children[indexOfFirstNode] = secondNode;
+        secondNode._parent = firstParent;
 
         secoundParent._children[indexOfSecundNode] = firstNode;
         firstNode._parent = secoundParent;
