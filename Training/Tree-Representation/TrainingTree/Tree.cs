@@ -52,7 +52,27 @@
 
         public IEnumerable<T> GetInternalKeys()
         {
-            throw new NotImplementedException();
+            var stack = new Stack<T>();
+            var queue = new Queue<Tree<T>>();
+            queue.Enqueue(this);
+
+
+            while (queue.Count > 0)
+            {
+                var currentTree = queue.Dequeue();
+
+                if(currentTree.Parent is not null && currentTree.Children.Count > 0)
+                {
+                    stack.Push(currentTree.Key);
+                }
+
+                foreach (var child in currentTree.Children)
+                {
+                    queue.Enqueue(child);
+                }
+            }
+
+            return stack;
         }
 
         public IEnumerable<T> GetLeafKeys()
@@ -71,6 +91,7 @@
         {
             throw new NotImplementedException();
         }
+
 
         private void GetLeafKeysWithDfs(Tree<T> tree ,List<T> list)
         {
