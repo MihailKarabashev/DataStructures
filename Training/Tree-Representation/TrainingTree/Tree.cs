@@ -61,7 +61,7 @@
             {
                 var currentTree = queue.Dequeue();
 
-                if(currentTree.Parent is not null && currentTree.Children.Count > 0)
+                if (currentTree.Parent is not null && currentTree.Children.Count > 0)
                 {
                     stack.Push(currentTree.Key);
                 }
@@ -84,16 +84,38 @@
 
         public T GetDeepestKey()
         {
-            throw new NotImplementedException();
+            int currentDepth = 0;
+            int depth = 0;
+            T key = default;
+            
+            DeepestNodeWithDfs(this, ref key, ref currentDepth, ref depth);
+            return key;
         }
-
+     
         public IEnumerable<T> GetLongestPath()
         {
             throw new NotImplementedException();
         }
 
+        private void DeepestNodeWithDfs(Tree<T> tree, ref T key, ref int currentDepth, ref int depth)
+        {
 
-        private void GetLeafKeysWithDfs(Tree<T> tree ,List<T> list)
+            foreach (var child in tree.Children)
+            {
+                currentDepth++;
+                DeepestNodeWithDfs(child,ref key, ref currentDepth, ref depth);
+            }
+
+            if (currentDepth > depth)
+            {
+                key = tree.Key;
+                depth = currentDepth;
+            }
+
+            currentDepth--;
+        }
+
+        private void GetLeafKeysWithDfs(Tree<T> tree, List<T> list)
         {
             foreach (var child in tree.Children)
             {
@@ -108,15 +130,15 @@
             //   7
             // 19
             //1 12 31
-            sb.AppendLine(new string(' ', counter) +  tree.Key.ToString()); 
+            sb.AppendLine(new string(' ', counter) + tree.Key.ToString());
 
             foreach (var child in tree.Children)
             {
                 counter += 2;
-                AsStringWithDfs(child,sb, ref counter);
+                AsStringWithDfs(child, sb, ref counter);
             }
 
-            counter-=2;
+            counter -= 2;
         }
     }
 }
