@@ -94,7 +94,33 @@
      
         public IEnumerable<T> GetLongestPath()
         {
-            throw new NotImplementedException();
+            var stack = new Stack<T>();
+            var listOfLists = new List<List<T>>();
+
+            GetLongestPathWithDfs(this, stack, listOfLists);
+            
+            var longestPath = listOfLists.
+                OrderByDescending(x=> x.Count).ToList();
+
+            return longestPath[0];
+        }
+
+        private void GetLongestPathWithDfs(Tree<T> tree, Stack<T> stack, List<List<T>> listOfLists)
+        {
+            foreach (var child in tree.Children)
+            {
+                GetLongestPathWithDfs(child, stack, listOfLists);
+            }
+
+            while (tree.Parent != null)
+            {
+                stack.Push(tree.Key);
+                tree = tree.Parent;
+            }
+
+            stack.Push(tree.Key);
+            listOfLists.Add(stack.ToList());
+            stack.Clear();
         }
 
         private void DeepestNodeWithDfs(Tree<T> tree, ref T key, ref int currentDepth, ref int depth)

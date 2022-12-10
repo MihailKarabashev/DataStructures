@@ -23,6 +23,9 @@ var tree = new Tree<int>(7,
 //var deepestKey = tree.GetDeepestKey();
 //Console.WriteLine(deepestKey);
 
+var longestPath = tree.GetLongestPath();
+Console.WriteLine(string.Join(" ", longestPath));
+
 
 
 
