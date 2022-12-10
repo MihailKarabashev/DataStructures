@@ -1,4 +1,5 @@
-﻿using Tree;
+﻿using TrainingTree;
+using Tree;
 
 var tree = new Tree<int>(7,
                      new Tree<int>(19,
@@ -9,6 +10,17 @@ var tree = new Tree<int>(7,
                      new Tree<int>(14,
                         new Tree<int>(23),
                         new Tree<int>(6))
+                     );
+
+var integerTree = new IntegerTree(7,
+                     new IntegerTree(19,
+                        new IntegerTree(1),
+                        new IntegerTree(12),
+                        new IntegerTree(31)),
+                     new IntegerTree(21),
+                     new IntegerTree(14,
+                        new IntegerTree(23),
+                        new IntegerTree(6))
                      );
 
 //var ss = tree.AsString();
@@ -23,8 +35,19 @@ var tree = new Tree<int>(7,
 //var deepestKey = tree.GetDeepestKey();
 //Console.WriteLine(deepestKey);
 
-var longestPath = tree.GetLongestPath();
-Console.WriteLine(string.Join(" ", longestPath));
+//var longestPath = tree.GetLongestPath();
+//Console.WriteLine(string.Join(" ", longestPath));
+
+var integerthreepaths = integerTree.GetPathsWithGivenSum(27);
+
+foreach (var integerthreepath in integerthreepaths)
+{
+    foreach (var item in integerthreepath)
+    {
+        Console.Write(item + " ");
+    }
+    Console.WriteLine();
+}
 
 
 
