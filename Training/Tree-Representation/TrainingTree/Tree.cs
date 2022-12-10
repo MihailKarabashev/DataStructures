@@ -57,7 +57,9 @@
 
         public IEnumerable<T> GetLeafKeys()
         {
-            throw new NotImplementedException();
+            var list = new List<T>();
+            GetLeafKeysWithDfs(this, list);
+            return list;
         }
 
         public T GetDeepestKey()
@@ -68,6 +70,16 @@
         public IEnumerable<T> GetLongestPath()
         {
             throw new NotImplementedException();
+        }
+
+        private void GetLeafKeysWithDfs(Tree<T> tree ,List<T> list)
+        {
+            foreach (var child in tree.Children)
+            {
+                GetLeafKeysWithDfs(child, list);
+            }
+
+            if (tree.Children.Count == 0) list.Add(tree.Key);
         }
 
         private void AsStringWithDfs(Tree<T> tree, StringBuilder sb, ref int counter)

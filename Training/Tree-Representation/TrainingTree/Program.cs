@@ -11,6 +11,10 @@ var tree = new Tree<int>(7,
                         new Tree<int>(6))
                      );
 
-var ss = tree.AsString();
+//var ss = tree.AsString();
+//Console.WriteLine(ss);
 
-Console.WriteLine(ss);
+var leafKeys = tree.GetLeafKeys();
+Console.WriteLine(string.Join(" ", leafKeys));
+
+
