@@ -16,10 +16,10 @@ public class IntegerTree : Tree<int>, IIntegerTree
 
     public IEnumerable<IEnumerable<int>> GetPathsWithGivenSum(int sum)
     {
-        var stack = new Stack<int>();
-        var listOfLists = new List<List<int>>();
+        var listOfLists = new List<Stack<int>>();
 
-        base.GetPathsWithDfs(this, stack, listOfLists);
+        base.GetPathsWithDfs(this, listOfLists);
+
         var paths = listOfLists.Where(x => x.Sum(n => n) == sum).ToList();
 
         return paths;
@@ -27,6 +27,16 @@ public class IntegerTree : Tree<int>, IIntegerTree
 
     public IEnumerable<Tree<int>> GetSubtreesWithGivenSum(int sum)
     {
+
         throw new NotImplementedException();
+        //var stack = new Stack<int>();
+        //var listOfLists = new List<List<int>>();
+
+        //base.GetPathsWithDfs(this, stack, listOfLists);
+
+        //var subTree = listOfLists.Where(x => x.Sum(n => n) == sum).ToList();
+        //var leftMostSubTree = subTree[0].Select(x => new Tree<int>(x)).ToList();
+
+        //return leftMostSubTree;
     }
 }

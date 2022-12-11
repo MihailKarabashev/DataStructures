@@ -94,25 +94,25 @@
 
         public IEnumerable<T> GetLongestPath()
         {
-            var stack = new Stack<T>();
-            var listOfLists = new List<List<T>>();
+            var listOfStacks = new List<Stack<T>>();
 
-            GetPathsWithDfs(this, stack, listOfLists);
+            GetPathsWithDfs(this, listOfStacks);
             
-            var longestPath = listOfLists.
+            var longestPath = listOfStacks.
                 OrderByDescending(x=> x.Count).ToList();
 
             return longestPath[0];
         }
 
 
-        protected void GetPathsWithDfs(Tree<T> tree, Stack<T> stack, List<List<T>> listOfLists)
+        protected void GetPathsWithDfs(Tree<T> tree, List<Stack<T>> listOfLists)
         {
-
             foreach (var child in tree.Children)
             {
-                GetPathsWithDfs(child, stack, listOfLists);
+                GetPathsWithDfs(child, listOfLists);
             }
+
+            var stack = new Stack<T>();
 
             while (tree.Parent != null)
             {
@@ -121,8 +121,7 @@
             }
 
             stack.Push(tree.Key);
-            listOfLists.Add(stack.ToList());
-            stack.Clear();
+            listOfLists.Add(stack);
         }
 
         private void DeepestNodeWithDfs(Tree<T> tree, ref T key, ref int currentDepth, ref int depth)
