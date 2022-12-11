@@ -23,33 +23,33 @@ var integerTree = new IntegerTree(7,
                         new IntegerTree(6))
                      );
 
-var ss = tree.AsString();
-Console.WriteLine(ss);
+//var ss = tree.AsString();
+//Console.WriteLine(ss);
 
-var leafKeys = tree.GetLeafKeys();
-Console.WriteLine(string.Join(" ", leafKeys));
+//var leafKeys = tree.GetLeafKeys();
+//Console.WriteLine(string.Join(" ", leafKeys));
 
-var internalKeys = tree.GetInternalKeys();
-Console.WriteLine(string.Join(" ", internalKeys));
+//var internalKeys = tree.GetInternalKeys();
+//Console.WriteLine(string.Join(" ", internalKeys));
 
-var deepestKey = tree.GetDeepestKey();
-Console.WriteLine(deepestKey);
+//var deepestKey = tree.GetDeepestKey();
+//Console.WriteLine(deepestKey);
 
-var longestPath = tree.GetLongestPath();
-Console.WriteLine(string.Join(" ", longestPath));
+//var longestPath = tree.GetLongestPath();
+//Console.WriteLine(string.Join(" ", longestPath));
 
-var integerthreepaths = integerTree.GetPathsWithGivenSum(27);
+//var integerthreepaths = integerTree.GetPathsWithGivenSum(27);
 
-foreach (var integerthreepath in integerthreepaths)
-{
-    foreach (var item in integerthreepath)
-    {
-        Console.Write(item + " ");
-    }
-    Console.WriteLine();
-}
+//foreach (var integerthreepath in integerthreepaths)
+//{
+//    foreach (var item in integerthreepath)
+//    {
+//        Console.Write(item + " ");
+//    }
+//    Console.WriteLine();
+//}
 
-var subTreeWithGivenSum = integerTree.GetSubtreesWithGivenSum(43);
+var subTreeWithGivenSum = integerTree.GetSubtreesWithGivenSum(63);
 Console.WriteLine(string.Join(" ", subTreeWithGivenSum.Select(x => x.Key)));
 
 
