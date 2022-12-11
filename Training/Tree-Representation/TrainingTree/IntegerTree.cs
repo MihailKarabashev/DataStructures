@@ -4,7 +4,7 @@ namespace TrainingTree;
 
 public class IntegerTree : Tree<int>, IIntegerTree
 {
-    public IntegerTree(int key) 
+    public IntegerTree(int key)
         : base(key)
     {
     }
@@ -27,16 +27,26 @@ public class IntegerTree : Tree<int>, IIntegerTree
 
     public IEnumerable<Tree<int>> GetSubtreesWithGivenSum(int sum)
     {
+        var list = new List<Tree<int>>();
+        //var listOfStacks = new List<Stack<Tree<int>>>();
+        GetSubtreesWithGivenSumDfs(this, list, sum);
+        return list;
+    }
 
-        throw new NotImplementedException();
-        //var stack = new Stack<int>();
-        //var listOfLists = new List<List<int>>();
+    //250 кинта вкарани още
+    private void GetSubtreesWithGivenSumDfs(Tree<int> tree, List<Tree<int>> list, int sum)
+    {
+        foreach (var child in tree.Children)
+        {
+            if (tree.Parent == null) list.Clear();
+           
+            list.Add(child);
 
-        //base.GetPathsWithDfs(this, stack, listOfLists);
+            if (list.Sum(x => x.Key) == sum) return;
 
-        //var subTree = listOfLists.Where(x => x.Sum(n => n) == sum).ToList();
-        //var leftMostSubTree = subTree[0].Select(x => new Tree<int>(x)).ToList();
+            GetSubtreesWithGivenSumDfs(child, list, sum);
 
-        //return leftMostSubTree;
+            if (list.Sum(x => x.Key) == sum) return;
+        }
     }
 }
