@@ -49,7 +49,7 @@ var integerTree = new IntegerTree(7,
 //    Console.WriteLine();
 //}
 
-var subTreeWithGivenSum = integerTree.GetSubtreesWithGivenSum(63);
+var subTreeWithGivenSum = integerTree.GetSubtreesWithGivenSum(20);
 Console.WriteLine(string.Join(" ", subTreeWithGivenSum.Select(x => x.Key)));
 
 

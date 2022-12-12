@@ -30,12 +30,12 @@ public class IntegerTree : Tree<int>, IIntegerTree
         var list = new List<Tree<int>>();
         var listOfLists = new List<List<Tree<int>>>();
 
-        GetSubTreesWithGivenSum(this, list, listOfLists);
-        var subTree = listOfLists.Where(x => x.Sum(n => n.Key) == sum).ToList();
-        return subTree[0];
+        //GetSubTreesWithGivenSum(this, list, listOfLists);
+        //var subTree = listOfLists.Where(x => x.Sum(n => n.Key) == sum).ToList();
+        //return subTree[0];
 
-        //GetSubtreesWithGivenSumDfs(this, list, sum);
-        //return list;
+        GetSubtreesWithGivenSumDfs(this, list, sum);
+        return list;
     }
 
     private void GetSubTreesWithGivenSum(Tree<int> tree, List<Tree<int>> list, List<List<Tree<int>>> listOfLists)
@@ -44,9 +44,9 @@ public class IntegerTree : Tree<int>, IIntegerTree
         {
             if (tree.Parent == null) list.Clear();
 
-            list.Add(child);
+            list.Add(child); //19
 
-            listOfLists.Add(list.ToList());
+            listOfLists.Add(list.ToList()); // list [19], []19,1], [19,1,12], [19,1,12,31]
 
             GetSubTreesWithGivenSum(child, list, listOfLists);
         }
