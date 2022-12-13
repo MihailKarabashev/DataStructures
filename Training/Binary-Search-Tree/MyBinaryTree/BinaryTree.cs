@@ -1,4 +1,7 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics.Metrics;
+using System.Text;
 
 namespace MyBinaryTree;
 
@@ -20,6 +23,22 @@ public class BinaryTree<T> : IAbstractBinaryTree<T>
     public IAbstractBinaryTree<T> Right { get; private set; }
 
     public IAbstractBinaryTree<T> Left { get; private set; }
+
+    public string AsIndentedPreOrder(int indent)
+    {
+        var sb = new StringBuilder();
+        SetIndentationWithPreOrder(this, sb, indent);
+        return sb.ToString();
+    }
+
+    public void ForEachInOrder(Action<T> action)
+    {
+        if (this.Left != null) this.Left.ForEachInOrder(action);
+
+        action.Invoke(this.Value);
+
+        if (this.Right != null) this.Right.ForEachInOrder(action);
+    }
 
     //Left Root Right
     public IEnumerable<IAbstractBinaryTree<T>> InOrder()
@@ -61,5 +80,16 @@ public class BinaryTree<T> : IAbstractBinaryTree<T>
         if (this.Right != null) list.AddRange(this.Right.PreOrder());
 
         return list;
+    }
+
+    private void SetIndentationWithPreOrder(IAbstractBinaryTree<T> tree, StringBuilder sb, int indent)
+    {
+        sb.AppendLine(new string(' ', indent) + tree.Value.ToString());
+
+        indent = tree.Left == null && tree.Right == null ? indent -= 2 : indent += 2;
+
+        if (tree.Left != null) SetIndentationWithPreOrder(tree.Left, sb, indent);
+
+        if (tree.Right != null) SetIndentationWithPreOrder(tree.Right, sb, indent);
     }
 }

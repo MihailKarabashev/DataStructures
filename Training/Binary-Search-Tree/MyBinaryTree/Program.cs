@@ -14,12 +14,17 @@ var binaryTree = new BinaryTree<int>(7,
                  new BinaryTree<int>(11, new BinaryTree<int>(10), null)));
 
 
-var inOrderTree = binaryTree.InOrder();
+var ss = binaryTree.AsIndentedPreOrder(0);
+Console.WriteLine(ss);
 
-foreach (var item in inOrderTree)
-{
-    Console.Write(item.Value + " ");
-}
+//binaryTree.ForEachInOrder(Console.Write);
+
+//var inOrderTree = binaryTree.InOrder();
+
+//foreach (var item in inOrderTree)
+//{
+//    Console.Write(item.Value + " ");
+//}
 
 //var binaryTree = new BinaryTree<int>(1,
 //    new BinaryTree<int>(2,
