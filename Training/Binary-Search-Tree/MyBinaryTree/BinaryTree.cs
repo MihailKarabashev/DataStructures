@@ -1,4 +1,6 @@
-﻿namespace MyBinaryTree;
+﻿using System.ComponentModel;
+
+namespace MyBinaryTree;
 
 public class BinaryTree<T> : IAbstractBinaryTree<T>
 {
@@ -19,19 +21,36 @@ public class BinaryTree<T> : IAbstractBinaryTree<T>
 
     public IAbstractBinaryTree<T> Left { get; private set; }
 
-
+    //Left Root Right
     public IEnumerable<IAbstractBinaryTree<T>> InOrder()
     {
-        throw new NotImplementedException();
+        var list = new List<IAbstractBinaryTree<T>>();
+
+        if (this.Left != null) list.AddRange(this.Left.InOrder());
+
+        list.Add(this);
+
+        if(this.Right != null) list.AddRange(this.Right.InOrder());
+
+        return list;
     }
 
+    //Left Right Root
     public IEnumerable<IAbstractBinaryTree<T>> PostOrder()
     {
-        throw new NotImplementedException();
+        var list = new List<IAbstractBinaryTree<T>>();
+
+        if (this.Left != null) list.AddRange(this.Left.PostOrder());
+
+        if (this.Right != null) list.AddRange(this.Right.PostOrder());
+
+        list.Add(this);
+
+        return list;
     }
 
     //Root Left Right
-    // 7 4 2 1 3
+    // 7 4 2 1 3 5 6 
     public IEnumerable<IAbstractBinaryTree<T>> PreOrder()
     {
         var list = new List<IAbstractBinaryTree<T>>();
