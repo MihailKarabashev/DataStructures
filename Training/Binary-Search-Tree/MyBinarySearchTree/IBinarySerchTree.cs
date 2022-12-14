@@ -9,4 +9,8 @@ public interface IBinarySerchTree<T> where T : IComparable<T>
     bool Contains(T item);
 
     IBinarySerchTree<T> Search(T item);
+
+    void DeleteMin();
+
+    void DeleteMax();
 }

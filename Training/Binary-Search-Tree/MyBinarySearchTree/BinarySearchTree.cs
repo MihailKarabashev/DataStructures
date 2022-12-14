@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Xml.Linq;
 
 namespace MyBinarySearchTree;
 
@@ -27,7 +27,6 @@ public class BinarySearchTree<T> : IBinarySerchTree<T> where T : IComparable<T>
 
     private Node _root;
 
-
     public void EachInOrder(Action<T> action)
     {
         EachInOrderDfs(_root, action);
@@ -41,11 +40,36 @@ public class BinarySearchTree<T> : IBinarySerchTree<T> where T : IComparable<T>
         return bst;
     }
 
+    public void DeleteMin()
+    {
+        if (_root == null) throw new InvalidOperationException();
+
+        var node = _root;
+
+        while (node.Left.Left != null)
+        {
+            node = node.Left;
+        }
+
+        node.Left = null;
+    }
+
+    public void DeleteMax()
+    {
+        var node = _root;
+
+        while (node.Right.Right != null)
+        {
+            node = node.Right;
+        }
+
+        node.Right = null;
+    }
+
     public bool Contains(T item)
     {
        return Search(item) != null ? true : false;
     }  
-
 
     public void Insert(T item)
     {
