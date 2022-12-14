@@ -23,13 +23,32 @@ public class BinarySearchTree<T> : IBinarySerchTree<T> where T : IComparable
 
     public void Insert(T item)
     {
-        if (_root == null)
+        //if (_root == null)
+        //{
+        //    _root = new Node(item);
+        //    return;
+        //}
+
+        //InsertPreOrder(_root,item);
+
+        _root = Insert(_root, item);
+    }
+
+    private Node Insert(Node node, T item)
+    {
+        if (node == null)
+             node = new Node(item);
+
+        if(node.Value.CompareTo(item) > 0)
         {
-            _root = new Node(item);
-            return;
+            node.Left = Insert(node.Left, item);
+        }
+        else if(node.Value.CompareTo(item) < 0)
+        {
+            node.Right = Insert(node.Right, item);
         }
 
-        InsertPreOrder(_root,item);
+        return node;
     }
 
     private void InsertPreOrder(Node node, T item)
