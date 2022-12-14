@@ -8,5 +8,9 @@ binarySearchTree.Insert(19);
 binarySearchTree.Insert(6);
 binarySearchTree.Insert(8);
 
+//var isFound = binarySearchTree.Contains(8);
+//Console.WriteLine(isFound);
 
+var bst = binarySearchTree.Search(9);
+bst.Insert(50);
 binarySearchTree.EachInOrder(Console.WriteLine);

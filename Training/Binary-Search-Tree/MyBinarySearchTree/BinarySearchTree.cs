@@ -1,7 +1,18 @@
-﻿namespace MyBinarySearchTree;
+﻿using System.ComponentModel.DataAnnotations;
 
-public class BinarySearchTree<T> : IBinarySerchTree<T> where T : IComparable
+namespace MyBinarySearchTree;
+
+public class BinarySearchTree<T> : IBinarySerchTree<T> where T : IComparable<T>
 {
+    public BinarySearchTree()
+    {
+    }
+
+    private BinarySearchTree(Node node)
+    {
+        PreOrderCopy(node);
+    }
+
     private class Node
     {
         public Node(T value)
@@ -16,10 +27,25 @@ public class BinarySearchTree<T> : IBinarySerchTree<T> where T : IComparable
 
     private Node _root;
 
+
     public void EachInOrder(Action<T> action)
     {
         EachInOrderDfs(_root, action);
     }
+
+    public IBinarySerchTree<T> Search(T item)
+    {
+        var node = Search(_root, item);
+        if (node == null) return null;
+        var bst = new BinarySearchTree<T>(node);
+        return bst;
+    }
+
+    public bool Contains(T item)
+    {
+       return Search(item) != null ? true : false;
+    }  
+
 
     public void Insert(T item)
     {
@@ -32,6 +58,33 @@ public class BinarySearchTree<T> : IBinarySerchTree<T> where T : IComparable
         //InsertPreOrder(_root,item);
 
         _root = Insert(_root, item);
+    }
+
+    private void PreOrderCopy(Node node)
+    {
+        if (node == null) return;
+
+        Insert(node.Value);
+        PreOrderCopy(node.Left);
+        PreOrderCopy(node.Right);
+    }
+
+    private Node Search(Node node, T item)
+    {
+         if (node == null) return null;
+
+        if (node.Value.Equals(item)) return node;
+
+        if (node.Value.CompareTo(item) > 0)
+        {
+            node = Search(node.Left, item);
+        }
+        else if (node.Value.CompareTo(item) < 0)
+        {
+            node = Search(node.Right, item);
+        }
+
+        return node;
     }
 
     private Node Insert(Node node, T item)
