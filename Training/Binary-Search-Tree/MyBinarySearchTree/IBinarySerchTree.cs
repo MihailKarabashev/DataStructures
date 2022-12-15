@@ -19,4 +19,6 @@ public interface IBinarySerchTree<T> where T : IComparable<T>
     int Count();
 
     int Rank(T value);
+
+    T Select(int number);
 }

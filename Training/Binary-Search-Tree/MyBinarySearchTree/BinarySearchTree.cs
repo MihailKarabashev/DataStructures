@@ -27,6 +27,8 @@ public class BinarySearchTree<T> : IBinarySerchTree<T> where T : IComparable<T>
 
     private Node _root;
 
+    public int Counter { get; private set; }
+
     public void EachInOrder(Action<T> action)
     {
         EachInOrderDfs(_root, action);
@@ -52,6 +54,7 @@ public class BinarySearchTree<T> : IBinarySerchTree<T> where T : IComparable<T>
         }
 
         node.Left = null;
+        Counter--;
     }
 
     public void DeleteMax()
@@ -66,6 +69,7 @@ public class BinarySearchTree<T> : IBinarySerchTree<T> where T : IComparable<T>
         }
 
         node.Right = null;
+        Counter--;
     }
 
     public void Delete(T item)
@@ -91,24 +95,15 @@ public class BinarySearchTree<T> : IBinarySerchTree<T> where T : IComparable<T>
         //InsertPreOrder(_root,item);
 
         _root = Insert(_root, item);
+        Counter++;
     }
 
-    public int Count()
+    public T Select(int number)
     {
-        int count = 0;
-
-        //Count(_root, ref count);
-
-        return Count(_root, count);
+        return default;
     }
 
-    private void Count(Node node, ref int count)
-    {
-        count++;
-
-       if(node.Left!= null) Count(node.Left, ref count);
-       if(node.Right != null) Count(node.Right, ref count);
-    }
+    public int Count() => Counter;
 
     private int Count(Node node, int count)
     {
@@ -142,6 +137,7 @@ public class BinarySearchTree<T> : IBinarySerchTree<T> where T : IComparable<T>
     {
         if (node.Value.Equals(item))
         {
+            Counter--;
             node = null;
             return node;
         }
