@@ -81,8 +81,8 @@ public class BinarySearchTree<T> : IBinarySerchTree<T> where T : IComparable<T>
 
     public bool Contains(T item)
     {
-       return Search(item) != null ? true : false;
-    }  
+        return Search(item) != null ? true : false;
+    }
 
     public void Insert(T item)
     {
@@ -110,7 +110,7 @@ public class BinarySearchTree<T> : IBinarySerchTree<T> where T : IComparable<T>
         count++;
 
         if (node.Left != null) count = Count(node.Left, count);
-       
+
         if (node.Right != null) count = Count(node.Right, count);
 
         return count;
@@ -119,7 +119,7 @@ public class BinarySearchTree<T> : IBinarySerchTree<T> where T : IComparable<T>
     public int Rank(T value)
     {
         int count = 0;
-
+      
         return Rank(_root, value, count);
     }
 
@@ -127,8 +127,8 @@ public class BinarySearchTree<T> : IBinarySerchTree<T> where T : IComparable<T>
     {
         if (node.Value.CompareTo(value) < 0) count++;
 
-        if(node.Left != null) count = Rank(node.Left,value, count);
-        if (node.Right != null) count = Rank(node.Right, value, count);
+        if (node.Left != null && node.Value.CompareTo(value) > 0) count = Rank(node.Left, value, count);
+        if (node.Right != null && node.Value.CompareTo(value) < 0) count = Rank(node.Right, value, count);
 
         return count;
     }
@@ -141,8 +141,8 @@ public class BinarySearchTree<T> : IBinarySerchTree<T> where T : IComparable<T>
             node = null;
             return node;
         }
-        else if(node.Left != null) node.Left =  Delete(node.Left, item);
-        else if(node.Right != null) node.Right = Delete(node.Right, item);
+        else if (node.Left != null) node.Left = Delete(node.Left, item);
+        else if (node.Right != null) node.Right = Delete(node.Right, item);
 
         return node;
     }
@@ -163,7 +163,7 @@ public class BinarySearchTree<T> : IBinarySerchTree<T> where T : IComparable<T>
 
     private Node Search(Node node, T item)
     {
-         if (node == null) return null;
+        if (node == null) return null;
 
         if (node.Value.Equals(item)) return node;
 
@@ -182,13 +182,13 @@ public class BinarySearchTree<T> : IBinarySerchTree<T> where T : IComparable<T>
     private Node Insert(Node node, T item)
     {
         if (node == null)
-             node = new Node(item);
+            node = new Node(item);
 
-        if(node.Value.CompareTo(item) > 0)
+        if (node.Value.CompareTo(item) > 0)
         {
             node.Left = Insert(node.Left, item);
         }
-        else if(node.Value.CompareTo(item) < 0)
+        else if (node.Value.CompareTo(item) < 0)
         {
             node.Right = Insert(node.Right, item);
         }
@@ -200,8 +200,8 @@ public class BinarySearchTree<T> : IBinarySerchTree<T> where T : IComparable<T>
     {
         if (node.Left == null && node.Value.CompareTo(item) > 0) node.Left = new Node(item);
 
-        if(node.Right == null && node.Value.CompareTo(item) < 0) node.Right = new Node(item);
-        
+        if (node.Right == null && node.Value.CompareTo(item) < 0) node.Right = new Node(item);
+
         if (node.Value.CompareTo(item) > 0) InsertPreOrder(node.Left, item);
 
         if (node.Value.CompareTo(item) < 0) InsertPreOrder(node.Right, item);
@@ -219,5 +219,5 @@ public class BinarySearchTree<T> : IBinarySerchTree<T> where T : IComparable<T>
         EachInOrderDfs(node.Right, action);
     }
 
-  
+
 }

@@ -4,19 +4,20 @@ var binarySearchTree = new BinarySearchTree<int>();
 
 binarySearchTree.Insert(17);
 binarySearchTree.Insert(9);
-binarySearchTree.Insert(19);
 binarySearchTree.Insert(6);
 binarySearchTree.Insert(8);
+binarySearchTree.Insert(19);
+binarySearchTree.Insert(22);
 
-//var rank = binarySearchTree.Rank(8);
-//Console.WriteLine(rank);
+var rank = binarySearchTree.Rank(23);
+Console.WriteLine(rank);
 
-var count = binarySearchTree.Count();
-Console.WriteLine(count);
+//var count = binarySearchTree.Count();
+//Console.WriteLine(count);
 
-binarySearchTree.Delete(8);
-var ss = binarySearchTree.Count();
-Console.WriteLine(ss);
+//binarySearchTree.Delete(8);
+//var ss = binarySearchTree.Count();
+//Console.WriteLine(ss);
 
 //binarySearchTree.DeleteMin();
 //binarySearchTree.DeleteMax();
