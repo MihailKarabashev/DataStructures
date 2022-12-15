@@ -8,8 +8,13 @@ binarySearchTree.Insert(19);
 binarySearchTree.Insert(6);
 binarySearchTree.Insert(8);
 
-binarySearchTree.Delete(8);
+var rank = binarySearchTree.Rank(8);
+Console.WriteLine(rank);
 
+//var count = binarySearchTree.Count();
+//Console.WriteLine(count);
+
+//binarySearchTree.Delete(8);
 // binarySearchTree.DeleteMin();
 //binarySearchTree.DeleteMax();
 //var isFound = binarySearchTree.Contains(8);

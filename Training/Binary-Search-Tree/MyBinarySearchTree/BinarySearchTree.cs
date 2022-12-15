@@ -93,6 +93,51 @@ public class BinarySearchTree<T> : IBinarySerchTree<T> where T : IComparable<T>
         _root = Insert(_root, item);
     }
 
+    public int Count()
+    {
+        int count = 0;
+
+        //Count(_root, ref count);
+
+        return Count(_root, count);
+    }
+
+    private void Count(Node node, ref int count)
+    {
+        count++;
+
+       if(node.Left!= null) Count(node.Left, ref count);
+       if(node.Right != null) Count(node.Right, ref count);
+    }
+
+    private int Count(Node node, int count)
+    {
+        count++;
+
+        if (node.Left != null) count = Count(node.Left, count);
+       
+        if (node.Right != null) count = Count(node.Right, count);
+
+        return count;
+    }
+
+    public int Rank(T value)
+    {
+        int count = 0;
+
+        return Rank(_root, value, count);
+    }
+
+    private int Rank(Node node, T value, int count)
+    {
+        if (node.Value.CompareTo(value) < 0) count++;
+
+        if(node.Left != null) count = Rank(node.Left,value, count);
+        if (node.Right != null) count = Rank(node.Right, value, count);
+
+        return count;
+    }
+
     private Node Delete(Node node, T item)
     {
         if (node.Value.Equals(item))
@@ -177,4 +222,6 @@ public class BinarySearchTree<T> : IBinarySerchTree<T> where T : IComparable<T>
 
         EachInOrderDfs(node.Right, action);
     }
+
+  
 }
