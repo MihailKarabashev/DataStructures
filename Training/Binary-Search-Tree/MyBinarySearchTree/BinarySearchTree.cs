@@ -127,8 +127,8 @@ public class BinarySearchTree<T> : IBinarySerchTree<T> where T : IComparable<T>
     {
         if (node.Value.CompareTo(value) < 0) count++;
 
-        if (node.Left != null && node.Value.CompareTo(value) > 0) count = Rank(node.Left, value, count);
-        if (node.Right != null && node.Value.CompareTo(value) < 0) count = Rank(node.Right, value, count);
+        if (node.Left != null) count = Rank(node.Left, value, count);
+        if (node.Right != null) count = Rank(node.Right, value, count);
 
         return count;
     }
