@@ -46,14 +46,7 @@ public class BinarySearchTree<T> : IBinarySerchTree<T> where T : IComparable<T>
     {
         ValidateRoot();
 
-        var node = _root;
-
-        while (node.Left.Left != null)
-        {
-            node = node.Left;
-        }
-
-        node.Left = null;
+        _root = DeleteMin(_root);
         Counter--;
     }
 
@@ -61,14 +54,7 @@ public class BinarySearchTree<T> : IBinarySerchTree<T> where T : IComparable<T>
     {
         ValidateRoot();
 
-        var node = _root;
-
-        while (node.Right.Right != null)
-        {
-            node = node.Right;
-        }
-
-        node.Right = null;
+        _root = DeleteMax(_root);
         Counter--;
     }
 
@@ -121,6 +107,24 @@ public class BinarySearchTree<T> : IBinarySerchTree<T> where T : IComparable<T>
         int count = 0;
       
         return Rank(_root, value, count);
+    }
+
+    private Node DeleteMax(Node node)
+    {
+        if (node.Right == null) return node.Left;
+
+        node.Right = DeleteMax(node.Right);
+
+        return node;
+    }
+
+    private Node DeleteMin(Node node)
+    {
+        if (node.Left == null) return node.Right;
+
+        node.Left = DeleteMin(node.Left);
+
+        return node;
     }
 
     private int Rank(Node node, T value, int count)
