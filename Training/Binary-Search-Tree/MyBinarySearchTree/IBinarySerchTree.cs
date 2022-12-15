@@ -13,4 +13,6 @@ public interface IBinarySerchTree<T> where T : IComparable<T>
     void DeleteMin();
 
     void DeleteMax();
+
+    void Delete(T item);
 }

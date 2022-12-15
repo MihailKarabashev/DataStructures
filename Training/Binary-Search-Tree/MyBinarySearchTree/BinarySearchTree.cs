@@ -42,7 +42,7 @@ public class BinarySearchTree<T> : IBinarySerchTree<T> where T : IComparable<T>
 
     public void DeleteMin()
     {
-        if (_root == null) throw new InvalidOperationException();
+        ValidateRoot();
 
         var node = _root;
 
@@ -56,6 +56,8 @@ public class BinarySearchTree<T> : IBinarySerchTree<T> where T : IComparable<T>
 
     public void DeleteMax()
     {
+        ValidateRoot();
+
         var node = _root;
 
         while (node.Right.Right != null)
@@ -64,6 +66,13 @@ public class BinarySearchTree<T> : IBinarySerchTree<T> where T : IComparable<T>
         }
 
         node.Right = null;
+    }
+
+    public void Delete(T item)
+    {
+        ValidateRoot();
+
+        _root = Delete(_root, item);
     }
 
     public bool Contains(T item)
@@ -82,6 +91,24 @@ public class BinarySearchTree<T> : IBinarySerchTree<T> where T : IComparable<T>
         //InsertPreOrder(_root,item);
 
         _root = Insert(_root, item);
+    }
+
+    private Node Delete(Node node, T item)
+    {
+        if (node.Value.Equals(item))
+        {
+            node = null;
+            return node;
+        }
+        else if(node.Left != null) node.Left =  Delete(node.Left, item);
+        else if(node.Right != null) node.Right = Delete(node.Right, item);
+
+        return node;
+    }
+
+    private void ValidateRoot()
+    {
+        if (_root == null) throw new InvalidOperationException();
     }
 
     private void PreOrderCopy(Node node)
