@@ -1,4 +1,7 @@
-﻿using System.Xml.Linq;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Dynamic;
+using System.Runtime.ExceptionServices;
+using System.Xml.Linq;
 
 namespace MyBinarySearchTree;
 
@@ -134,13 +137,6 @@ public class BinarySearchTree<T> : IBinarySerchTree<T> where T : IComparable<T>
 
     private Node Floor(Node node, T value)
     {
-        var element = (decimal)Math.Floor(Convert.ToDecimal(node.Right.Value));
-
-        if (node.Value.Equals(element))
-        {
-            return node;
-        }
-
         if (node.Left != null) node = Floor(node.Left, value);
         if(node.Right != null) node = Floor(node.Right, value);
 

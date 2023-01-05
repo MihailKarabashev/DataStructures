@@ -26,4 +26,5 @@ bst.Insert(37);
 bst.Insert(39);
 bst.Insert(45);
 
-var rangeList = bst.Range(4, 37);
+var floor = bst.Floor(5);
+Console.WriteLine(floor);
