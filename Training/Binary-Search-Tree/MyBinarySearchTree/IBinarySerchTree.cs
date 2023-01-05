@@ -21,4 +21,10 @@ public interface IBinarySerchTree<T> where T : IComparable<T>
     int Rank(T value);
 
     T Select(int number);
+
+    T Floor(T value);
+
+    T Ceiling(T value);
+
+    IEnumerable<T> Range(T first, T secound);
 }

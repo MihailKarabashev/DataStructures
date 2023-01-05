@@ -91,6 +91,62 @@ public class BinarySearchTree<T> : IBinarySerchTree<T> where T : IComparable<T>
 
     public int Count() => Counter;
 
+    public int Rank(T value)
+    {
+        int count = 0;
+
+        return Rank(_root, value, count);
+    }
+
+    public IEnumerable<T> Range(T first , T secound)
+    {
+        var list = new List<T>();
+
+        Range(_root, list, first, secound);
+
+        return list;
+    }
+
+    public T Floor(T value)
+    {
+        ValidateRoot();
+        var node = Floor(_root, value);
+        return node.Value;
+    }
+
+    public T Ceiling(T value)
+    {
+        throw new NotImplementedException();
+    }
+
+    private void Range(Node node, List<T> list, T firstValue, T secoundValue)
+    {
+        if (node.Left != null) Range(node.Left, list, firstValue, secoundValue);
+
+        if (node.Value.CompareTo(firstValue) >= 0 && node.Value.CompareTo(secoundValue) <= 0)
+        {
+            list.Add(node.Value);
+        }
+
+        if (node.Right != null) Range(node.Right, list, firstValue, secoundValue);
+
+    }
+
+    private Node Floor(Node node, T value)
+    {
+        var element = (decimal)Math.Floor(Convert.ToDecimal(node.Right.Value));
+
+        if (node.Value.Equals(element))
+        {
+            return node;
+        }
+
+        if (node.Left != null) node = Floor(node.Left, value);
+        if(node.Right != null) node = Floor(node.Right, value);
+
+        return node;
+    }
+
     private int Count(Node node, int count)
     {
         count++;
@@ -100,13 +156,6 @@ public class BinarySearchTree<T> : IBinarySerchTree<T> where T : IComparable<T>
         if (node.Right != null) count = Count(node.Right, count);
 
         return count;
-    }
-
-    public int Rank(T value)
-    {
-        int count = 0;
-      
-        return Rank(_root, value, count);
     }
 
     private Node DeleteMax(Node node)
