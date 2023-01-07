@@ -31,10 +31,16 @@ public class Solution
 
     public TreeNode SearchBST(TreeNode root, int val)
     {
-        var list = new List<TreeNode>();
-        DfsSeach(root, val, list);
-        return list.Count() == 0 ? null : list[0];
+        if (root == null) return null;
+        else if (root._value == val) return root;
+        else if(root._value > val) return SearchBST(root._left, val);
+        else return SearchBST(root._right, val);
+        //var list = new List<TreeNode>();
+        //DfsSeach(root, val, list);
+        //return list.Count() == 0 ? null : list[0];
     }
+
+  
 
     private void DfsSeach(TreeNode root, int val, List<TreeNode> list)
     {
